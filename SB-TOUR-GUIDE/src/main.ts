@@ -73,8 +73,6 @@ type Package = {
         </div>
       </section>
 
-      <!-- DESTINATIONS SECTION -->
-
       <section class="destinations section" id="destinations">
         <span class="eyebrow dark">DISCOVER BALI / DESTINATIONS</span>
         <h2>Explore beautiful<br><em>places in Bali.</em></h2>
@@ -101,8 +99,6 @@ type Package = {
           </article>
         }
       </section>
-
-      <!-- PACKAGES SECTION -->
 
       <section class="packages section" id="packages">
         <div class="section-heading">
@@ -195,8 +191,6 @@ type Package = {
           </div>
         </div>
       </section>
-
-      <!-- ABOUT SECTION -->
 
       <section class="description-section section" id="about">
         <span class="eyebrow dark">THE EXPERIENCE / ABOUT THE JOURNEY</span>
@@ -461,8 +455,6 @@ type Package = {
       letter-spacing: 2px;
     }
 
-    /* DESTINATIONS */
-
     .destinations {
       background: #fff;
     }
@@ -557,8 +549,6 @@ type Package = {
       line-height: 1.85;
       margin: 12px 0 22px;
     }
-
-    /* PACKAGES */
 
     .packages { background: #efefec; }
 
@@ -734,8 +724,6 @@ type Package = {
       margin-top: 18px;
     }
 
-    /* ABOUT */
-
     .description-section > p {
       color: #777;
       max-width: 850px;
@@ -775,8 +763,6 @@ type Package = {
       margin-top: 24px;
       padding: 30px;
     }
-
-    /* FINAL CTA */
 
     .final-cta {
       background: #202326;
@@ -1133,13 +1119,15 @@ export class App {
     return tier ? tier.price : null;
   }
 
+  // WHATSAPP LINK - FIXED
+
   get whatsappLink(): string {
     const message =
-      \`Hello SB Tour Guide! I am interested in \${this.selectedPackage.name}. \` +
-      \`Participants: \${this.participants}. \` +
-      \`Price per person: \${this.selectedPrice === null
+      `Hello SB Tour Guide! I am interested in ${this.selectedPackage.name}. ` +
+      `Participants: ${this.participants}. ` +
+      `Price per person: ${this.selectedPrice === null
         ? 'Please confirm'
-        : this.formatPrice(this.selectedPrice)}.\`;
+        : this.formatPrice(this.selectedPrice)}.`;
 
     return 'https://wa.me/6285956346354?text=' +
       encodeURIComponent(message);
