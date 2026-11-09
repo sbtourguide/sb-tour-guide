@@ -30,6 +30,11 @@
     "glob": "google4d17233666eeedb2.html",
     "input": "src",
     "output": "/"
+  },
+  {
+    "glob": "sitemap.xml",
+    "input": "src",
+    "output": "/"
   }
 ],
             "index": "src/index.html",
