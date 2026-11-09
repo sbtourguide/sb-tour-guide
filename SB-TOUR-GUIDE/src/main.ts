@@ -29,24 +29,25 @@ type Package = {
 
     <main>
       <section class="hero" id="home">
-        <div class="hero-content">
-          <span class="eyebrow">DISCOVER BALI WITH US</span>
-          <h1>Explore Bali.<br>Experience <em>More.</em></h1>
-          <p>
-            Discover the beauty of Bali through unforgettable
-            journeys, local experiences and extraordinary adventures.
-          </p>
-          <a href="#experiences" class="hero-button">EXPLORE EXPERIENCES ↗</a>
-        </div>
-        <span class="hero-number">01 / BALI EXPERIENCE</span>
-      </section>
-
+  <div class="hero-content">
+    <span class="eyebrow">YOUR LOCAL GUIDE TO BALI</span>
+    <h1>Discover Bali.<br>Experience <em>Authentic.</em></h1>
+    <p>
+      Explore Bali with a local tour guide.
+      Discover breathtaking landscapes, rich Balinese culture,
+      unforgettable adventures and hidden gems.
+    </p>
+    <a href="#experiences" class="hero-button">EXPLORE BALI TOURS ↗️</a>
+  </div>
+  <span class="hero-number">01 / BALI EXPERIENCE</span>
+</section>
       <section class="intro section" id="experiences">
         <span class="eyebrow dark">OUR EXPERIENCES / 2026</span>
         <h2>Find your next<br><em>adventure.</em></h2>
         <p>
-          From volcanic sunrise adventures to unforgettable mountain
-          trekking, discover Bali with experienced local guides.
+          Discover the best of Bali with local tour guides.
+Experience Mount Batur sunrise adventures, scenic
+trekking and authentic Balinese culture.
         </p>
 
         <div class="category-grid">
