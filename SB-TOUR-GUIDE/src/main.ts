@@ -23,6 +23,7 @@ type Package = {
     <nav class="nav">
       <a href="#home">Home</a>
       <a href="#experiences">Experiences</a>
+      <a href="#destinations">Destinations</a>
       <a href="#packages">Packages</a>
       <a href="#about">About</a>
     </nav>
@@ -71,6 +72,34 @@ type Package = {
           </button>
         </div>
       </section>
+
+      <!-- DESTINATIONS SECTION -->
+
+      <section class="destinations section" id="destinations">
+        <span class="eyebrow dark">DISCOVER BALI / DESTINATIONS</span>
+        <h2>Explore beautiful<br><em>places in Bali.</em></h2>
+        <p class="destinations-intro">
+          Discover beautiful destinations and unforgettable experiences
+          during your journey with SB Tour Guide.
+        </p>
+
+        @for (place of destinations; track place.title; let i = $index) {
+          <article class="destination-item">
+            <div [class]="'destination-photo ' + place.photoClass">
+              <span class="photo-number">0{{ i + 1 }} / DESTINATION</span>
+            </div>
+
+            <div class="destination-content">
+              <span class="destination-category">{{ place.category }}</span>
+              <h3>{{ place.title }}</h3>
+              <p>{{ place.description }}</p>
+              <p>{{ place.extra }}</p>
+            </div>
+          </article>
+        }
+      </section>
+
+      <!-- PACKAGES SECTION -->
 
       <section class="packages section" id="packages">
         <div class="section-heading">
@@ -164,6 +193,8 @@ type Package = {
         </div>
       </section>
 
+      <!-- ABOUT SECTION -->
+
       <section class="description-section section" id="about">
         <span class="eyebrow dark">THE EXPERIENCE / ABOUT THE JOURNEY</span>
         <h2>{{ activeTab === 'jeep' ? 'Beyond the ordinary.' : 'Reach the summit.' }}</h2>
@@ -179,6 +210,7 @@ type Package = {
               }
             </ul>
           </div>
+
           <div class="info-box">
             <span>02 / NOT INCLUDED</span>
             <h3>What's excluded</h3>
@@ -216,7 +248,7 @@ type Package = {
         <span>TOUR GUIDE</span>
       </a>
       <p>Discover Bali. Experience More.</p>
-      <small>©️ 2026 SB TOUR GUIDE. ALL RIGHTS RESERVED.</small>
+      <small>© 2026 SB TOUR GUIDE. ALL RIGHTS RESERVED.</small>
     </footer>
   `,
   styles: [`
@@ -272,13 +304,15 @@ type Package = {
 
     .nav {
       display: flex;
-      gap: 34px;
+      gap: 30px;
       padding: 18px 7%;
       background: white;
       border-top: 1px solid #eee;
       font-size: 13px;
       color: #686868;
     }
+
+    .nav a:hover { color: #d92d3b; }
 
     .hero {
       min-height: 550px;
@@ -423,6 +457,105 @@ type Package = {
       font-size: 10px;
       letter-spacing: 2px;
     }
+
+    /* DESTINATIONS */
+
+    .destinations {
+      background: #fff;
+    }
+
+    .destinations-intro {
+      color: #777;
+      max-width: 550px;
+      line-height: 1.8;
+      margin-bottom: 45px;
+    }
+
+    .destination-item {
+      margin-top: 55px;
+    }
+
+    .destination-photo {
+      width: 100%;
+      height: 390px;
+      border-radius: 7px;
+      display: flex;
+      align-items: flex-end;
+      padding: 22px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .destination-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        0deg,
+        rgba(0,0,0,.45),
+        transparent 55%
+      );
+    }
+
+    .photo-number {
+      position: relative;
+      z-index: 1;
+      color: white;
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    .photo-trekking {
+      background: linear-gradient(135deg,#283b40,#b58b5b,#e7a34c);
+    }
+
+    .photo-jeep {
+      background: linear-gradient(135deg,#353b35,#76634b,#c18c4e);
+    }
+
+    .photo-akasa {
+      background: linear-gradient(135deg,#4b5546,#a58a69,#d2b38c);
+    }
+
+    .photo-petanu {
+      background: linear-gradient(135deg,#173f35,#397c5a,#9ab68b);
+    }
+
+    .photo-janu {
+      background: linear-gradient(135deg,#526d70,#a7a18a,#d5c7a3);
+    }
+
+    .photo-kanto {
+      background: linear-gradient(135deg,#194b37,#43805a,#a1b58a);
+    }
+
+    .destination-content {
+      padding: 28px 0 15px;
+    }
+
+    .destination-category {
+      color: #a95b2a;
+      font-size: 13px;
+      letter-spacing: 3px;
+      font-weight: bold;
+    }
+
+    .destination-content h3 {
+      color: #171c29;
+      font-size: clamp(23px,4vw,34px);
+      line-height: 1.15;
+      margin: 22px 0 12px;
+    }
+
+    .destination-content p {
+      color: #626875;
+      font-size: 17px;
+      line-height: 1.85;
+      margin: 12px 0 22px;
+    }
+
+    /* PACKAGES */
 
     .packages { background: #efefec; }
 
@@ -598,6 +731,8 @@ type Package = {
       margin-top: 18px;
     }
 
+    /* ABOUT */
+
     .description-section > p {
       color: #777;
       max-width: 850px;
@@ -637,6 +772,8 @@ type Package = {
       margin-top: 24px;
       padding: 30px;
     }
+
+    /* FINAL CTA */
 
     .final-cta {
       background: #202326;
@@ -714,7 +851,9 @@ type Package = {
       }
 
       .hero h1 { letter-spacing: -2px; }
+
       .section { padding: 65px 6%; }
+
       .category-grid { gap: 10px; }
 
       .category-card {
@@ -723,20 +862,80 @@ type Package = {
       }
 
       .category-card strong { font-size: 20px; }
+
+      .destination-item { margin-top: 42px; }
+
+      .destination-photo { height: 250px; }
+
+      .destination-content { padding-top: 25px; }
+
+      .destination-content p {
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
       .package-layout { grid-template-columns: 1fr; }
+
       .booking-card { padding: 23px; }
+
       .info-grid { grid-template-columns: 1fr; }
+
       .edition { font-size: 9px; }
     }
   `]
 })
-  export class App {
+export class App {
   activeTab: 'jeep' | 'trekking' = 'jeep';
   trekTime: 'sunrise' | 'sunset' = 'sunrise';
   participants = 2;
   selectedPackageId = 'jeep-only-no-transfer';
 
   participantOptions = Array.from({ length: 30 }, (_, i) => i + 1);
+
+  destinations = [
+    {
+      category: 'ON FOOT',
+      title: 'MOUNT BATUR SUNRISE TREKKING',
+      description: 'Experience an unforgettable sunrise adventure on Mount Batur. Trek through volcanic landscapes with an experienced local guide and enjoy breathtaking panoramic views from the summit.',
+      extra: 'Discover the beauty of Lake Batur, Mount Abang and Mount Agung as the morning sun rises over the mountains. This experience is perfect for travellers who want to explore Mount Batur on foot.',
+      photoClass: 'photo-trekking'
+    },
+    {
+      category: '4WD JEEP ADVENTURE',
+      title: 'MOUNT BATUR JEEP TOUR',
+      description: 'Explore the spectacular volcanic landscape of Mount Batur in a 4WD Jeep. Enjoy an exciting sunrise journey and discover the famous black lava fields.',
+      extra: 'Travel across the unique volcanic terrain while enjoying beautiful views of the surrounding mountains and Lake Batur. A memorable adventure without having to hike to the summit.',
+      photoClass: 'photo-jeep'
+    },
+    {
+      category: 'COFFEE & SCENIC VIEW',
+      title: 'AKASA SPECIALTY COFFEE',
+      description: 'Relax at AKASA Specialty Coffee, a scenic cafe located in the beautiful Kintamani highlands. Enjoy delicious coffee and a comfortable atmosphere.',
+      extra: 'The cafe offers wonderful views of the surrounding mountains and volcanic caldera, making it a lovely place to relax and enjoy the scenery after your Mount Batur adventure.',
+      photoClass: 'photo-akasa'
+    },
+    {
+      category: 'NATURE & WATERFALL',
+      title: 'ULU PETANU WATERFALL',
+      description: 'Discover the natural beauty of Ulu Petanu Waterfall, surrounded by lush tropical greenery and a peaceful natural environment.',
+      extra: 'Enjoy the refreshing atmosphere, flowing water and beautiful scenery. It is a wonderful destination for visitors who want to experience the natural side of Bali.',
+      photoClass: 'photo-petanu'
+    },
+    {
+      category: 'RELAX & REFRESH',
+      title: 'THE JANU HOT SPRING',
+      description: 'Take a relaxing break at The Janu Hot Spring in Kintamani. Enjoy the warm natural hot spring water while surrounded by beautiful mountain scenery.',
+      extra: 'It is a perfect place to unwind and refresh yourself after an exciting Mount Batur sunrise Jeep tour or trekking adventure.',
+      photoClass: 'photo-janu'
+    },
+    {
+      category: 'TROPICAL WATERFALL',
+      title: 'KANTO LAMPO WATERFALL',
+      description: 'Visit the beautiful Kanto Lampo Waterfall in Gianyar, one of Bali’s popular natural attractions.',
+      extra: 'Famous for its cascading water flowing over natural rock formations, this waterfall offers a beautiful tropical setting and a memorable nature experience.',
+      photoClass: 'photo-kanto'
+    }
+  ];
 
   jeepPackages: Package[] = [
     {
