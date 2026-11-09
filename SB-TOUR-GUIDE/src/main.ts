@@ -42,13 +42,13 @@ type Package = {
   <span class="hero-number">01 / BALI EXPERIENCE</span>
 </section>
       <section class="intro section" id="experiences">
-        <span class="eyebrow dark">OUR EXPERIENCES / 2026</span>
-        <h2>Find your next<br><em>adventure.</em></h2>
-        <p>
-          Discover the best of Bali with local tour guides.
-Experience Mount Batur sunrise adventures, scenic
-trekking and authentic Balinese culture.
-        </p>
+        <span class="eyebrow dark">EXPLORE BALI / 2026</span>
+<h2>Discover your next<br><em>adventure.</em></h2>
+<p>
+  Experience the best of Bali with local tour guides.
+  Enjoy breathtaking Mount Batur sunrise tours,
+  scenic trekking and authentic Balinese culture.
+</p>
 
         <div class="category-grid">
           <button class="category-card jeep-card"
