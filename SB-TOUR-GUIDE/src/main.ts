@@ -80,7 +80,10 @@ type Package = {
         <h2>Explore beautiful<br><em>places in Bali.</em></h2>
         <p class="destinations-intro">
           Discover beautiful destinations and unforgettable experiences
-          during your journey with SB Tour Guide.
+          during your journey with SB Tour Guide. From spectacular volcanic
+          landscapes and scenic mountain cafes to refreshing waterfalls
+          and relaxing natural hot springs, every destination offers
+          something special to remember.
         </p>
 
         @for (place of destinations; track place.title; let i = $index) {
@@ -248,7 +251,7 @@ type Package = {
         <span>TOUR GUIDE</span>
       </a>
       <p>Discover Bali. Experience More.</p>
-      <small>© 2026 SB TOUR GUIDE. ALL RIGHTS RESERVED.</small>
+      <small>©️ 2026 SB TOUR GUIDE. ALL RIGHTS RESERVED.</small>
     </footer>
   `,
   styles: [`
@@ -894,45 +897,45 @@ export class App {
 
   destinations = [
     {
-      category: 'ON FOOT',
+      category: 'MOUNTAIN ADVENTURE',
       title: 'MOUNT BATUR SUNRISE TREKKING',
-      description: 'Experience an unforgettable sunrise adventure on Mount Batur. Trek through volcanic landscapes with an experienced local guide and enjoy breathtaking panoramic views from the summit.',
-      extra: 'Discover the beauty of Lake Batur, Mount Abang and Mount Agung as the morning sun rises over the mountains. This experience is perfect for travellers who want to explore Mount Batur on foot.',
+      description: 'Experience one of Bali’s most unforgettable outdoor adventures with a sunrise trek to the summit of Mount Batur. Located in the beautiful Kintamani highlands, Mount Batur is an active volcano famous for its spectacular sunrise views and breathtaking volcanic landscapes. Begin your journey in the early morning with an experienced local trekking guide who will accompany you along the mountain trails.',
+      extra: 'As you make your way towards the summit, enjoy the peaceful atmosphere of the mountain before the island awakens. Once at the top, witness the magical sunrise as golden sunlight slowly illuminates Lake Batur, Mount Abang and the majestic Mount Agung in the distance. Take memorable photographs, enjoy the fresh mountain air and appreciate the extraordinary beauty of Bali from above. This experience is perfect for travellers seeking adventure, natural beauty and an unforgettable sunrise moment.',
       photoClass: 'photo-trekking'
     },
     {
-      category: '4WD JEEP ADVENTURE',
-      title: 'MOUNT BATUR JEEP TOUR',
-      description: 'Explore the spectacular volcanic landscape of Mount Batur in a 4WD Jeep. Enjoy an exciting sunrise journey and discover the famous black lava fields.',
-      extra: 'Travel across the unique volcanic terrain while enjoying beautiful views of the surrounding mountains and Lake Batur. A memorable adventure without having to hike to the summit.',
+      category: 'VOLCANIC JEEP ADVENTURE',
+      title: 'MOUNT BATUR SUNRISE JEEP TOUR',
+      description: 'Discover the incredible beauty of Mount Batur with an exciting sunrise adventure aboard a traditional 4WD Jeep. This experience offers a unique way to explore the volcanic landscape of Kintamani without having to hike to the summit. Accompanied by an experienced local Jeep driver, travel through the fascinating black lava fields created by previous volcanic eruptions.',
+      extra: 'Start your adventure in the quiet hours of the early morning and make your way to a beautiful sunrise viewing location. Watch as the first rays of sunlight appear over the horizon, revealing magnificent views of Mount Batur, Lake Batur and the surrounding mountains. After enjoying the sunrise, explore the famous black lava landscape, discover unique volcanic formations and capture incredible photographs along the journey. It is an exciting experience combining adventure, stunning scenery and unforgettable memories in Bali.',
       photoClass: 'photo-jeep'
     },
     {
-      category: 'COFFEE & SCENIC VIEW',
+      category: 'COFFEE EXPERIENCE & MOUNTAIN VIEW',
       title: 'AKASA SPECIALTY COFFEE',
-      description: 'Relax at AKASA Specialty Coffee, a scenic cafe located in the beautiful Kintamani highlands. Enjoy delicious coffee and a comfortable atmosphere.',
-      extra: 'The cafe offers wonderful views of the surrounding mountains and volcanic caldera, making it a lovely place to relax and enjoy the scenery after your Mount Batur adventure.',
+      description: 'Take a relaxing break at AKASA Specialty Coffee, a beautiful cafe located in the scenic highlands of Kintamani. Known for its inviting atmosphere and impressive mountain surroundings, AKASA is a wonderful destination for travellers who want to enjoy a delicious cup of coffee while appreciating the natural beauty of Bali.',
+      extra: 'Relax in a comfortable setting and enjoy the panoramic views of the surrounding mountains and volcanic caldera. Whether you prefer freshly brewed coffee, refreshing beverages or simply spending quality time with friends and family, AKASA offers a pleasant place to slow down and enjoy the moment. It is also a lovely stop after your Mount Batur sunrise Jeep tour or trekking adventure, giving you the opportunity to unwind while taking in the beautiful scenery of Kintamani.',
       photoClass: 'photo-akasa'
     },
     {
-      category: 'NATURE & WATERFALL',
+      category: 'TROPICAL NATURE & WATERFALL',
       title: 'ULU PETANU WATERFALL',
-      description: 'Discover the natural beauty of Ulu Petanu Waterfall, surrounded by lush tropical greenery and a peaceful natural environment.',
-      extra: 'Enjoy the refreshing atmosphere, flowing water and beautiful scenery. It is a wonderful destination for visitors who want to experience the natural side of Bali.',
+      description: 'Escape into the peaceful natural surroundings of Ulu Petanu Waterfall, a beautiful waterfall destination surrounded by lush tropical vegetation in Bali. Far from the busy atmosphere of the city, this natural attraction offers visitors an opportunity to experience the refreshing beauty of Bali’s countryside. Follow the scenic pathway through green surroundings as you make your way towards the sound of flowing water.',
+      extra: 'Once you arrive, enjoy the relaxing atmosphere created by the waterfall and the surrounding tropical landscape. The combination of flowing water, natural rock formations and rich greenery creates a beautiful setting for nature lovers and photography enthusiasts. Take your time to appreciate the peaceful environment, capture memorable photographs and enjoy a refreshing escape into nature. Ulu Petanu Waterfall is a wonderful addition to your Bali journey, especially after an exciting Mount Batur adventure.',
       photoClass: 'photo-petanu'
     },
     {
-      category: 'RELAX & REFRESH',
+      category: 'RELAXING NATURAL HOT SPRING',
       title: 'THE JANU HOT SPRING',
-      description: 'Take a relaxing break at The Janu Hot Spring in Kintamani. Enjoy the warm natural hot spring water while surrounded by beautiful mountain scenery.',
-      extra: 'It is a perfect place to unwind and refresh yourself after an exciting Mount Batur sunrise Jeep tour or trekking adventure.',
+      description: 'Complete your Mount Batur adventure with a relaxing visit to The Janu Hot Spring in Kintamani. Surrounded by the beautiful natural scenery of the highlands, this destination offers a wonderful opportunity to slow down and enjoy a peaceful hot spring experience. After an early morning sunrise tour or an exciting trekking adventure, take a moment to relax and appreciate the refreshing mountain atmosphere.',
+      extra: 'Enjoy the warm water while taking in the surrounding natural landscape and peaceful atmosphere. The experience offers a lovely contrast to the excitement of exploring Mount Batur, allowing you to spend some quality time relaxing during your Bali holiday. Whether you are travelling as a couple, with friends or with family, The Janu Hot Spring can be a memorable stop to add comfort and relaxation to your Kintamani itinerary.',
       photoClass: 'photo-janu'
     },
     {
-      category: 'TROPICAL WATERFALL',
+      category: 'ICONIC BALI WATERFALL',
       title: 'KANTO LAMPO WATERFALL',
-      description: 'Visit the beautiful Kanto Lampo Waterfall in Gianyar, one of Bali’s popular natural attractions.',
-      extra: 'Famous for its cascading water flowing over natural rock formations, this waterfall offers a beautiful tropical setting and a memorable nature experience.',
+      description: 'Discover the natural charm of Kanto Lampo Waterfall, one of the well-known waterfall attractions in Gianyar, Bali. Surrounded by tropical greenery and beautiful natural rock formations, this waterfall is famous for its distinctive cascading water flowing down a series of dark stone steps. Its unique appearance makes it a popular destination for travellers who want to experience Bali’s tropical nature and capture beautiful holiday photographs.',
+      extra: 'Follow the pathway towards the waterfall and enjoy the refreshing atmosphere of the surrounding environment. Listen to the sound of flowing water, admire the beautiful rock formations and take in the peaceful natural scenery. The cascading water creates an attractive backdrop for photography and a memorable opportunity to enjoy a different side of Bali. Kanto Lampo Waterfall is a wonderful destination for nature lovers, couples, families and anyone looking to add a beautiful waterfall experience to their Bali holiday.',
       photoClass: 'photo-kanto'
     }
   ];
@@ -1132,11 +1135,11 @@ export class App {
 
   get whatsappLink(): string {
     const message =
-      `Hello SB Tour Guide! I am interested in ${this.selectedPackage.name}. ` +
-      `Participants: ${this.participants}. ` +
-      `Price per person: ${this.selectedPrice === null
+      \`Hello SB Tour Guide! I am interested in \${this.selectedPackage.name}. \` +
+      \`Participants: \${this.participants}. \` +
+      \`Price per person: \${this.selectedPrice === null
         ? 'Please confirm'
-        : this.formatPrice(this.selectedPrice)}.`;
+        : this.formatPrice(this.selectedPrice)}.\`;
 
     return 'https://wa.me/6285956346354?text=' +
       encodeURIComponent(message);
