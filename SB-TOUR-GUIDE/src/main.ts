@@ -129,8 +129,7 @@ type Package = {
         @if (!detailView) {
           <div class="package-list">
             @for (pkg of activePackages; track pkg.id; let i = $index) {
-              <button class="package-item"
-                (click)="openPackage(pkg)">
+              <button class="package-item" (click)="openPackage(pkg)">
                 <span class="package-index">0{{ i + 1 }}</span>
                 <span class="package-name">
                   <strong>{{ pkg.name }}</strong>
@@ -142,7 +141,7 @@ type Package = {
           </div>
         } @else {
           <div class="detail-page">
-            <button class="back-button" (click)="backToPackages()">
+            <button class="back-button" (click)="returnToPackages()">
               ← BACK TO PACKAGES
             </button>
 
@@ -160,6 +159,7 @@ type Package = {
                 </div>
               }
             </div>
+
             <p class="gallery-caption">SWIPE TO EXPLORE THE EXPERIENCE →</p>
 
             <div class="detail-description">
@@ -563,7 +563,10 @@ type Package = {
       margin: 12px 0 22px;
     }
 
-    .packages { background: #efefec; }
+    .packages {
+      background: #efefec;
+      scroll-margin-top: 20px;
+    }
 
     .section-heading {
       display: flex;
@@ -1213,11 +1216,11 @@ export class App {
 
   get whatsappLink(): string {
     const message =
-      `Hello SB Tour Guide! I am interested in ${this.selectedPackage.name}. ` +
-      `Participants: ${this.participants}. ` +
-      `Price per person: ${this.selectedPrice === null
+      \`Hello SB Tour Guide! I am interested in \${this.selectedPackage.name}. \` +
+      \`Participants: \${this.participants}. \` +
+      \`Price per person: \${this.selectedPrice === null
         ? 'Please confirm'
-        : this.formatPrice(this.selectedPrice)}.`;
+        : this.formatPrice(this.selectedPrice)}.\`;
 
     return 'https://wa.me/6285956346354?text=' +
       encodeURIComponent(message);
@@ -1342,19 +1345,45 @@ export class App {
     return notes;
   }
 
+  // Membuka detail paket dan tetap berada di bagian Packages.
   openPackage(pkg: Package) {
     this.selectedPackageId = pkg.id;
     this.detailView = true;
     this.participants = 2;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    setTimeout(() => {
+      this.scrollToPackages();
+    }, 0);
   }
 
+  // Tombol navigasi utama: hanya menutup tampilan detail.
   backToPackages() {
     this.detailView = false;
   }
 
+  // Tombol BACK TO PACKAGES pada halaman detail.
+  returnToPackages() {
+    this.detailView = false;
+
+    setTimeout(() => {
+      this.scrollToPackages();
+    }, 0);
+  }
+
   goToPackages() {
     this.detailView = false;
+
+    setTimeout(() => {
+      this.scrollToPackages();
+    }, 0);
+  }
+
+  // Fungsi untuk mengarahkan layar ke bagian Packages.
+  private scrollToPackages() {
+    document.getElementById('packages')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
   }
 
   changeTab(tab: 'jeep' | 'trekking') {
