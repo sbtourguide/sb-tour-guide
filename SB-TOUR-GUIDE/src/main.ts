@@ -17,7 +17,7 @@ type Package = {
         <span class="brand-mark">SB</span>
         <span>TOUR GUIDE</span>
       </a>
-      <a class="contact" [href]="whatsappLink">CONTACT US ↗️</a>
+      <a class="contact" [href]="whatsappLink">CONTACT US ↗</a>
     </header>
 
     <nav class="nav">
@@ -38,7 +38,9 @@ type Package = {
             Discover breathtaking landscapes, rich Balinese culture,
             unforgettable adventures and hidden gems.
           </p>
-          <a href="#experiences" class="hero-button">EXPLORE BALI TOURS ↗️</a>
+          <a href="#experiences" class="hero-button">
+            EXPLORE BALI TOURS ↗
+          </a>
         </div>
         <span class="hero-number">01 / BALI EXPERIENCE</span>
       </section>
@@ -59,7 +61,7 @@ type Package = {
             <span class="category-number">01</span>
             <span class="category-icon">✦</span>
             <strong>MOUNT BATUR<br>JEEP TOUR</strong>
-            <span class="category-bottom">EXPLORE JEEP TOUR ↗️</span>
+            <span class="category-bottom">EXPLORE JEEP TOUR ↗</span>
           </button>
 
           <button class="category-card trek-card"
@@ -68,7 +70,7 @@ type Package = {
             <span class="category-number">02</span>
             <span class="category-icon">△</span>
             <strong>MOUNT BATUR<br>TREKKING</strong>
-            <span class="category-bottom">EXPLORE TREKKING ↗️</span>
+            <span class="category-bottom">EXPLORE TREKKING ↗</span>
           </button>
         </div>
       </section>
@@ -77,11 +79,9 @@ type Package = {
         <span class="eyebrow dark">DISCOVER BALI / DESTINATIONS</span>
         <h2>Explore beautiful<br><em>places in Bali.</em></h2>
         <p class="destinations-intro">
-          Discover beautiful destinations and unforgettable experiences
-          during your journey with SB Tour Guide. From spectacular volcanic
-          landscapes and scenic mountain cafes to refreshing waterfalls
-          and relaxing natural hot springs, every destination offers
-          something special to remember.
+          Discover Bali's beautiful volcanic landscapes,
+          mountain cafes, refreshing waterfalls and relaxing
+          natural hot springs with SB Tour Guide.
         </p>
 
         @for (place of destinations; track place.title; let i = $index) {
@@ -89,12 +89,10 @@ type Package = {
             <div [class]="'destination-photo ' + place.photoClass">
               <span class="photo-number">0{{ i + 1 }} / DESTINATION</span>
             </div>
-
             <div class="destination-content">
               <span class="destination-category">{{ place.category }}</span>
               <h3>{{ place.title }}</h3>
               <p>{{ place.description }}</p>
-              <p>{{ place.extra }}</p>
             </div>
           </article>
         }
@@ -104,7 +102,8 @@ type Package = {
         <div class="section-heading">
           <div>
             <span class="eyebrow dark">CHOOSE YOUR JOURNEY</span>
-            <h2>{{ activeTab === 'jeep' ? 'Jeep Tour' : 'Mountain Trekking' }}<br>
+            <h2>
+              {{ activeTab === 'jeep' ? 'Jeep Tour' : 'Mountain Trekking' }}<br>
               <em>{{ activeTab === 'jeep' ? 'Packages.' : 'Experiences.' }}</em>
             </h2>
           </div>
@@ -131,7 +130,7 @@ type Package = {
                   <strong>{{ pkg.name }}</strong>
                   <small>{{ pkg.description }}</small>
                 </span>
-                <span class="arrow">↗️</span>
+                <span class="arrow">↗</span>
               </button>
             }
           </div>
@@ -146,7 +145,9 @@ type Package = {
               <select id="participants" [value]="participants"
                 (change)="onParticipantsChange($event)">
                 @for (n of participantOptions; track n) {
-                  <option [value]="n">{{ n }} {{ n === 1 ? 'Person' : 'People' }}</option>
+                  <option [value]="n">
+                    {{ n }} {{ n === 1 ? 'Person' : 'People' }}
+                  </option>
                 }
               </select>
             </div>
@@ -162,28 +163,28 @@ type Package = {
               }
             </div>
 
-            <a class="book-button" [href]="whatsappLink" target="_blank"
-              rel="noopener">
-              BOOK THIS EXPERIENCE ↗️
+            <a class="book-button" [href]="whatsappLink"
+              target="_blank" rel="noopener">
+              BOOK THIS EXPERIENCE ↗
             </a>
 
             @if (activeTab === 'jeep') {
               <a class="gyg-button"
-                 href="https://www.getyourguide.com/kintamani-l118050/bali-sokasi-making-strawberry-garden-coffee-tour-t1517626/"
-                 target="_blank" rel="noopener">
-                BOOK ON GETYOURGUIDE ↗️
+                href="https://www.getyourguide.com/kintamani-l118050/bali-sokasi-making-strawberry-garden-coffee-tour-t1517626/"
+                target="_blank" rel="noopener">
+                BOOK ON GETYOURGUIDE ↗
               </a>
             } @else if (trekTime === 'sunrise') {
               <a class="gyg-button"
-                 href="https://www.getyourguide.com/kintamani-l118050/bali-tukad-seganing-farm-cafe-private-tour-with-pickup-t1501628/"
-                 target="_blank" rel="noopener">
-                BOOK ON GETYOURGUIDE ↗️
+                href="https://www.getyourguide.com/kintamani-l118050/bali-tukad-seganing-farm-cafe-private-tour-with-pickup-t1501628/"
+                target="_blank" rel="noopener">
+                BOOK ON GETYOURGUIDE ↗
               </a>
             } @else {
               <a class="gyg-button"
-                 href="https://www.getyourguide.com/bangli-city-l269190/bali-penglipuran-village-kehen-temple-coffee-tour-t1500435/"
-                 target="_blank" rel="noopener">
-                BOOK ON GETYOURGUIDE ↗️
+                href="https://www.getyourguide.com/bangli-city-l269190/bali-penglipuran-village-kehen-temple-coffee-tour-t1500435/"
+                target="_blank" rel="noopener">
+                BOOK ON GETYOURGUIDE ↗
               </a>
             }
 
@@ -234,7 +235,7 @@ type Package = {
         <span class="eyebrow">YOUR BALI ADVENTURE STARTS HERE</span>
         <h2>Let's explore<br>Bali together.</h2>
         <a [href]="whatsappLink" target="_blank" rel="noopener">
-          PLAN YOUR JOURNEY ↗️
+          PLAN YOUR JOURNEY ↗
         </a>
       </section>
     </main>
@@ -245,7 +246,7 @@ type Package = {
         <span>TOUR GUIDE</span>
       </a>
       <p>Discover Bali. Experience More.</p>
-      <small>©️ 2026 SB TOUR GUIDE. ALL RIGHTS RESERVED.</small>
+      <small>© 2026 SB TOUR GUIDE. ALL RIGHTS RESERVED.</small>
     </footer>
   `,
   styles: [`
@@ -455,9 +456,7 @@ type Package = {
       letter-spacing: 2px;
     }
 
-    .destinations {
-      background: #fff;
-    }
+    .destinations { background: #fff; }
 
     .destinations-intro {
       color: #777;
@@ -466,9 +465,7 @@ type Package = {
       margin-bottom: 45px;
     }
 
-    .destination-item {
-      margin-top: 55px;
-    }
+    .destination-item { margin-top: 55px; }
 
     .destination-photo {
       width: 100%;
@@ -485,11 +482,7 @@ type Package = {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        0deg,
-        rgba(0,0,0,.45),
-        transparent 55%
-      );
+      background: linear-gradient(0deg,rgba(0,0,0,.45),transparent 55%);
     }
 
     .photo-number {
@@ -525,9 +518,7 @@ type Package = {
       background: linear-gradient(135deg,#194b37,#43805a,#a1b58a);
     }
 
-    .destination-content {
-      padding: 28px 0 15px;
-    }
+    .destination-content { padding: 28px 0 15px; }
 
     .destination-category {
       color: #a95b2a;
@@ -708,7 +699,6 @@ type Package = {
       font-size: 11px;
       font-weight: bold;
       letter-spacing: 1px;
-      text-decoration: none;
     }
 
     .gyg-button:hover {
@@ -885,43 +875,37 @@ export class App {
     {
       category: 'MOUNTAIN ADVENTURE',
       title: 'MOUNT BATUR SUNRISE TREKKING',
-      description: 'Experience one of Bali’s most unforgettable outdoor adventures with a sunrise trek to the summit of Mount Batur. Located in the beautiful Kintamani highlands, Mount Batur is an active volcano famous for its spectacular sunrise views and breathtaking volcanic landscapes. Begin your journey in the early morning with an experienced local trekking guide who will accompany you along the mountain trails.',
-      extra: 'As you make your way towards the summit, enjoy the peaceful atmosphere of the mountain before the island awakens. Once at the top, witness the magical sunrise as golden sunlight slowly illuminates Lake Batur, Mount Abang and the majestic Mount Agung in the distance. Take memorable photographs, enjoy the fresh mountain air and appreciate the extraordinary beauty of Bali from above. This experience is perfect for travellers seeking adventure, natural beauty and an unforgettable sunrise moment.',
+      description: 'Enjoy an unforgettable early morning trek to the summit of Mount Batur. Witness a beautiful sunrise with panoramic views of Lake Batur, Mount Abang and Mount Agung. Accompanied by a local guide, this adventure is perfect for travellers who love nature and mountain scenery.',
       photoClass: 'photo-trekking'
     },
     {
       category: 'VOLCANIC JEEP ADVENTURE',
       title: 'MOUNT BATUR SUNRISE JEEP TOUR',
-      description: 'Discover the incredible beauty of Mount Batur with an exciting sunrise adventure aboard a traditional 4WD Jeep. This experience offers a unique way to explore the volcanic landscape of Kintamani without having to hike to the summit. Accompanied by an experienced local Jeep driver, travel through the fascinating black lava fields created by previous volcanic eruptions.',
-      extra: 'Start your adventure in the quiet hours of the early morning and make your way to a beautiful sunrise viewing location. Watch as the first rays of sunlight appear over the horizon, revealing magnificent views of Mount Batur, Lake Batur and the surrounding mountains. After enjoying the sunrise, explore the famous black lava landscape, discover unique volcanic formations and capture incredible photographs along the journey. It is an exciting experience combining adventure, stunning scenery and unforgettable memories in Bali.',
+      description: 'Explore Mount Batur in a traditional 4WD Jeep and enjoy a spectacular sunrise without hiking to the summit. Discover the famous black lava fields, admire the surrounding volcanic landscape and capture unforgettable photos with your local Jeep driver.',
       photoClass: 'photo-jeep'
     },
     {
       category: 'COFFEE EXPERIENCE & MOUNTAIN VIEW',
       title: 'AKASA SPECIALTY COFFEE',
-      description: 'Take a relaxing break at AKASA Specialty Coffee, a beautiful cafe located in the scenic highlands of Kintamani. Known for its inviting atmosphere and impressive mountain surroundings, AKASA is a wonderful destination for travellers who want to enjoy a delicious cup of coffee while appreciating the natural beauty of Bali.',
-      extra: 'Relax in a comfortable setting and enjoy the panoramic views of the surrounding mountains and volcanic caldera. Whether you prefer freshly brewed coffee, refreshing beverages or simply spending quality time with friends and family, AKASA offers a pleasant place to slow down and enjoy the moment. It is also a lovely stop after your Mount Batur sunrise Jeep tour or trekking adventure, giving you the opportunity to unwind while taking in the beautiful scenery of Kintamani.',
+      description: 'Relax at AKASA Specialty Coffee in the beautiful Kintamani highlands. Enjoy freshly brewed coffee, refreshing drinks and impressive mountain views. It is a perfect place to unwind after your Mount Batur sunrise adventure.',
       photoClass: 'photo-akasa'
     },
     {
       category: 'TROPICAL NATURE & WATERFALL',
       title: 'ULU PETANU WATERFALL',
-      description: 'Escape into the peaceful natural surroundings of Ulu Petanu Waterfall, a beautiful waterfall destination surrounded by lush tropical vegetation in Bali. Far from the busy atmosphere of the city, this natural attraction offers visitors an opportunity to experience the refreshing beauty of Bali’s countryside. Follow the scenic pathway through green surroundings as you make your way towards the sound of flowing water.',
-      extra: 'Once you arrive, enjoy the relaxing atmosphere created by the waterfall and the surrounding tropical landscape. The combination of flowing water, natural rock formations and rich greenery creates a beautiful setting for nature lovers and photography enthusiasts. Take your time to appreciate the peaceful environment, capture memorable photographs and enjoy a refreshing escape into nature. Ulu Petanu Waterfall is a wonderful addition to your Bali journey, especially after an exciting Mount Batur adventure.',
+      description: 'Discover the peaceful beauty of Ulu Petanu Waterfall, surrounded by lush tropical greenery and natural rock formations. Enjoy the refreshing atmosphere, listen to the flowing water and capture beautiful moments in Bali’s countryside.',
       photoClass: 'photo-petanu'
     },
     {
       category: 'RELAXING NATURAL HOT SPRING',
       title: 'THE JANU HOT SPRING',
-      description: 'Complete your Mount Batur adventure with a relaxing visit to The Janu Hot Spring in Kintamani. Surrounded by the beautiful natural scenery of the highlands, this destination offers a wonderful opportunity to slow down and enjoy a peaceful hot spring experience. After an early morning sunrise tour or an exciting trekking adventure, take a moment to relax and appreciate the refreshing mountain atmosphere.',
-      extra: 'Enjoy the warm water while taking in the surrounding natural landscape and peaceful atmosphere. The experience offers a lovely contrast to the excitement of exploring Mount Batur, allowing you to spend some quality time relaxing during your Bali holiday. Whether you are travelling as a couple, with friends or with family, The Janu Hot Spring can be a memorable stop to add comfort and relaxation to your Kintamani itinerary.',
+      description: 'Take a relaxing break at The Janu Hot Spring in Kintamani. Enjoy warm water, peaceful mountain surroundings and beautiful natural scenery. It is a lovely way to unwind after your Mount Batur sunrise tour or trekking adventure.',
       photoClass: 'photo-janu'
     },
     {
       category: 'ICONIC BALI WATERFALL',
       title: 'KANTO LAMPO WATERFALL',
-      description: 'Discover the natural charm of Kanto Lampo Waterfall, one of the well-known waterfall attractions in Gianyar, Bali. Surrounded by tropical greenery and beautiful natural rock formations, this waterfall is famous for its distinctive cascading water flowing down a series of dark stone steps. Its unique appearance makes it a popular destination for travellers who want to experience Bali’s tropical nature and capture beautiful holiday photographs.',
-      extra: 'Follow the pathway towards the waterfall and enjoy the refreshing atmosphere of the surrounding environment. Listen to the sound of flowing water, admire the beautiful rock formations and take in the peaceful natural scenery. The cascading water creates an attractive backdrop for photography and a memorable opportunity to enjoy a different side of Bali. Kanto Lampo Waterfall is a wonderful destination for nature lovers, couples, families and anyone looking to add a beautiful waterfall experience to their Bali holiday.',
+      description: 'Visit the famous Kanto Lampo Waterfall in Gianyar, known for its unique cascading water flowing over natural rock formations. Surrounded by tropical greenery, it is a beautiful destination for nature lovers and holiday photography.',
       photoClass: 'photo-kanto'
     }
   ];
@@ -1119,8 +1103,6 @@ export class App {
     return tier ? tier.price : null;
   }
 
-  // WHATSAPP LINK - FIXED
-
   get whatsappLink(): string {
     const message =
       `Hello SB Tour Guide! I am interested in ${this.selectedPackage.name}. ` +
@@ -1135,8 +1117,8 @@ export class App {
 
   get activeDescription(): string {
     return this.activeTab === 'jeep'
-      ? 'Start your day with a comfortable journey to Kintamani. Explore the volcanic landscape of Mount Batur in a classic open-roof 4WD Jeep. Watch the sunrise over the horizon with panoramic views of Mount Batur, Lake Batur and Mount Agung. Depending on your selected package, continue to AKASA Specialty Coffee, Segara Windhu Coffee Plantation, Ulu Petanu Waterfall or The Janu Hot Spring.'
-      : 'Enjoy an unforgettable trekking experience on Mount Batur with an experienced local guide. Choose a sunrise or sunset adventure and follow the mountain trail towards the summit. Discover spectacular views of Lake Batur, Mount Abang and Mount Agung. The hike takes approximately two hours and is of moderate difficulty.';
+      ? 'Start your day with a comfortable journey to Kintamani. Explore the volcanic landscape of Mount Batur in a classic 4WD Jeep and enjoy panoramic sunrise views of Mount Batur, Lake Batur and Mount Agung. Depending on your selected package, continue to AKASA Specialty Coffee, Ulu Petanu Waterfall or The Janu Hot Spring.'
+      : 'Enjoy an unforgettable Mount Batur trekking experience with an experienced local guide. Choose a sunrise or sunset adventure and follow the mountain trail towards the summit. Discover spectacular views of Lake Batur, Mount Abang and Mount Agung. The hike takes approximately two hours and is of moderate difficulty.';
   }
 
   get activeIncludes(): string[] {
