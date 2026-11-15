@@ -37,55 +37,65 @@ const trekkingPhotos = [
 ];
 
 const jeepBaseIncludes = [
-  'Penjemputan dan pengantaran hotel',
-  'Transportasi pribadi selama tur',
-  'Jeep 4WD untuk pengalaman menyaksikan matahari terbit di Gunung Batur.',
-  'Pengemudi dan pemandu Jeep berpengalaman',
-  'Tiket masuk ke destinasi yang termasuk dalam rencana perjalanan.'
+  'Hotel pick-up and drop-off.',
+  'Private transportation during the tour.',
+  '4WD Jeep for the Mount Batur sunrise experience.',
+  'Experienced Jeep driver and guide.',
+  'Entrance tickets to the destinations included in the itinerary.'
 ];
 
 const jeepBaseExcludes = [
-  'Makanan dan sarapan',
-  'Pengeluaran pribadi',
-  'Tips untuk pengemudi atau pemandu wisata',
-  'Aktivitas tambahan di luar rencana perjalanan',
-  'Segala biaya yang tidak disebutkan dalam bagian Termasuk'
+  'Food and breakfast.',
+  'Personal expenses.',
+  'Tips for the driver or tour guide.',
+  'Additional activities outside the itinerary.',
+  'Any expenses not mentioned in the What’s Included section.'
 ];
 
 const jeepBaseNotes = [
-  'Layanan antar-jemput hotel tersedia dari area-area tertentu.',
-  'Pengalaman Jeep di Gunung Batur menggunakan kendaraan 4WD dan menyusuri jalur vulkanik berbatu dan tidak beraspal.',
-  'Suhu di sekitar Gunung Batur bisa dingin di pagi hari, jadi disarankan untuk membawa jaket atau pakaian hangat.',
-  'Disarankan untuk memakai sepatu atau sandal yang nyaman saat berjalan.',
-  'Visibilitas saat matahari terbit mungkin bergantung pada kondisi cuaca.',
-  'Sarapan dan makan siang tidak termasuk.',
-  'Biaya pribadi dan aktivitas di luar rencana perjalanan tidak termasuk.'
+  'Hotel pick-up and drop-off services are available from selected areas.',
+  'The Mount Batur Jeep experience uses a 4WD vehicle and travels along rocky, unpaved volcanic trails.',
+  'Temperatures around Mount Batur can be cold in the early morning, so bringing a jacket or warm clothing is recommended.',
+  'Comfortable walking shoes or sandals are recommended.',
+  'Sunrise visibility may depend on weather conditions.',
+  'Breakfast and lunch are not included.',
+  'Personal expenses and activities outside the itinerary are not included.'
 ];
 
 const trekBaseIncludes = [
-  'Penjemputan dan pengantaran pribadi dari hotel',
-  'Pemandu trekking pribadi',
-  'Sarapan ringan (roti lapis pisang, telur, dan biskuit)',
-  'Air mineral',
-  'Senter',
-  'Tiket trekking',
-  'Semua tiket masuk untuk opsi yang dipilih'
+  'Private hotel pick-up and drop-off.',
+  'Private trekking guide.',
+  'Light breakfast (banana sandwich, eggs, and biscuits).',
+  'Mineral water.',
+  'Flashlight.',
+  'Trekking ticket.',
+  'All entrance tickets for the selected option.'
 ];
 
 const trekBaseExcludes = [
-  'Minuman dan makanan pribadi',
-  'Pengeluaran pribadi',
-  'Minuman hangat di puncak gunung'
+  'Personal food and drinks.',
+  'Personal expenses.',
+  'Hot drinks at the mountain summit.'
 ];
 
 const trekBaseNotes = [
-  'Pendakian dimulai sangat pagi, dalam keadaan gelap, jadi mohon bawa pakaian hangat dan sepatu hiking yang nyaman.',
-  'Pendakian ke puncak memakan waktu sekitar 2 jam dan dianggap memiliki tingkat kesulitan sedang.',
-  'Pemandu Anda akan menyediakan senter atau lampu kepala.',
-  'Suhu di puncak bisa sangat dingin sebelum matahari terbit.',
-  'Anda bisa mengganti pakaian setelah mendaki sebelum melanjutkan tur.',
-  'Mohon bawa uang tunai untuk pengeluaran pribadi selama perjalanan.',
-  'Harap ikuti petunjuk keselamatan dari pemandu Anda selama pendakian.'
+  'The trek starts very early in the morning, in the dark, so please bring warm clothing and comfortable hiking shoes.',
+  'The hike to the summit takes approximately 2 hours and is considered moderately challenging.',
+  'Your guide will provide a flashlight or headlamp.',
+  'Temperatures at the summit can be very cold before sunrise.',
+  'You can change your clothes after the hike before continuing the tour.',
+  'Please bring cash for personal expenses during the trip.',
+  'Please follow your guide’s safety instructions throughout the hike.'
+];
+
+const basicTrekkingNotes = [
+  'Mount Batur trekking requires a moderate level of physical fitness.',
+  'Wear comfortable hiking shoes with good grip.',
+  'Bring a jacket or warm clothing, as temperatures at the summit can be very cold.',
+  'Bring enough drinking water for the hike.',
+  'Flashlights are provided.',
+  'Follow your local guide’s instructions throughout the journey.',
+  'Please arrive at the meeting point at least 15 minutes before the scheduled start time.'
 ];
 
 function createPackage(
@@ -98,16 +108,7 @@ function createPackage(
   excludes: string[],
   notes: string[]
 ): Package {
-  return {
-    id,
-    name,
-    description,
-    prices,
-    photos,
-    includes,
-    excludes,
-    notes
-  };
+  return { id, name, description, prices, photos, includes, excludes, notes };
 }
 
 @Component({
@@ -262,7 +263,7 @@ function createPackage(
         } @else {
           <div class="detail-container">
             <button class="back-button" (click)="returnToPackages()">
-              ← KEMBALI KE PAKET
+              ← BACK TO PACKAGES
             </button>
 
             <div class="detail-heading">
@@ -283,12 +284,12 @@ function createPackage(
             <div class="detail-columns">
               <div class="detail-information">
                 <div class="detail-box">
-                  <h3>Deskripsi Singkat</h3>
+                  <h3>Short Description</h3>
                   <p>{{ selectedPackage.description }}</p>
                 </div>
 
                 <div class="detail-box">
-                  <h3>Termasuk</h3>
+                  <h3>What’s Included</h3>
                   <ul>
                     @for (item of selectedPackage.includes; track item) {
                       <li>{{ item }}</li>
@@ -297,7 +298,7 @@ function createPackage(
                 </div>
 
                 <div class="detail-box">
-                  <h3>Tidak Termasuk</h3>
+                  <h3>What’s Excluded</h3>
                   <ul>
                     @for (item of selectedPackage.excludes; track item) {
                       <li>{{ item }}</li>
@@ -306,7 +307,7 @@ function createPackage(
                 </div>
 
                 <div class="detail-box">
-                  <h3>Ketahui Sebelum Anda Pergi</h3>
+                  <h3>Know Before You Go</h3>
                   <ul>
                     @for (item of selectedPackage.notes; track item) {
                       <li>{{ item }}</li>
@@ -319,35 +320,37 @@ function createPackage(
                 <span class="eyebrow">BOOK YOUR ADVENTURE</span>
                 <h3>Booking Details</h3>
 
-                <label for="participants">Jumlah Peserta</label>
+                <label for="participants">Number of Participants</label>
                 <select
                   id="participants"
                   [value]="participants"
                   (change)="onParticipantsChange($event)"
                 >
                   @for (number of participantOptions; track number) {
-                    <option [value]="number">{{ number }} Orang</option>
+                    <option [value]="number">
+                      {{ number }} {{ number === 1 ? 'Person' : 'People' }}
+                    </option>
                   }
                 </select>
 
                 <div class="price-line">
-                  <span>Harga per orang</span>
+                  <span>Price per Person</span>
                   <strong>
                     @if (selectedPrice !== null) {
                       {{ formatPrice(selectedPrice) }}
                     } @else {
-                      Hubungi kami
+                      Contact Us
                     }
                   </strong>
                 </div>
 
                 <div class="total-price">
-                  <span>Total Harga</span>
+                  <span>Total Price</span>
                   <strong>
                     @if (selectedPrice !== null) {
                       {{ formatPrice(selectedPrice * participants) }}
                     } @else {
-                      Hubungi kami
+                      Contact Us
                     }
                   </strong>
                 </div>
@@ -361,7 +364,7 @@ function createPackage(
                 </a>
 
                 <p class="booking-note">
-                  Hubungi kami untuk memastikan ketersediaan dan pemesanan.
+                  Contact us to confirm availability and complete your booking.
                 </p>
               </aside>
             </div>
@@ -397,7 +400,7 @@ function createPackage(
 
       <section class="final-cta">
         <span class="eyebrow">READY FOR YOUR NEXT ADVENTURE?</span>
-        <h2>Let's Explore Bali Together</h2>
+        <h2>Let’s Explore Bali Together</h2>
         <p>Create unforgettable memories with SB Tour Guide.</p>
         <a [href]="whatsappContact" target="_blank" class="primary-button">
           CONTACT US ON WHATSAPP
@@ -1129,40 +1132,40 @@ export class App {
     {
       name: 'MOUNT BATUR SUNRISE TREKKING',
       image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
-      description: 'Nikmati pemandangan indah dan pengalaman matahari terbit di Gunung Batur.'
+      description: 'Enjoy beautiful mountain scenery and an unforgettable sunrise experience at Mount Batur.'
     },
     {
       name: 'MOUNT BATUR SUNRISE JEEP TOUR',
       image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200',
-      description: 'Jelajahi keindahan Gunung Batur dengan petualangan Jeep.'
+      description: 'Explore the beauty of Mount Batur on an exciting Jeep adventure.'
     },
     {
       name: 'AKASA SPECIALTY COFFEE',
       image: 'https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=1200',
-      description: 'Nikmati pengalaman kopi dengan pemandangan yang indah.'
+      description: 'Enjoy a relaxing coffee experience with beautiful scenic views.'
     },
     {
       name: 'ULU PETANU WATERFALL',
       image: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1200',
-      description: 'Temukan keindahan air terjun yang dikelilingi alam tropis.'
+      description: 'Discover a beautiful waterfall surrounded by tropical nature.'
     },
     {
-      name: 'THE JANU HOT SPRING',
+      name: 'JANU HOT SPRING',
       image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200',
-      description: 'Nikmati pengalaman bersantai di pemandian air panas.'
+      description: 'Enjoy a relaxing experience at a natural hot spring.'
     },
     {
       name: 'KANTO LAMPO WATERFALL',
       image: 'https://images.unsplash.com/photo-1511497584788-876760111969?w=1200',
-      description: 'Kunjungi salah satu destinasi air terjun yang indah di Bali.'
+      description: 'Visit one of Bali’s beautiful waterfall destinations.'
     }
   ];
 
   jeepPackages: Package[] = [
     createPackage(
       'jeep-only-no-transfer',
-      'Jeep Only - Tanpa Antar Jemput',
-      'Opsi ini hanya mencakup pengalaman Tur Jeep Gunung Batur. Layanan antar-jemput tidak termasuk, jadi tamu harus mengatur transportasi mereka sendiri ke titik pertemuan.',
+      'Jeep Only – Without Hotel Transfer',
+      'This option includes only the Mount Batur Jeep Tour experience. Hotel transfers are not included, so guests must arrange their own transportation to the meeting point.',
       [
         { min: 1, max: 1, price: 600000 },
         { min: 2, max: 2, price: 300000 },
@@ -1171,31 +1174,31 @@ export class App {
       ],
       jeepPhotos,
       [
-        'Jeep 4WD untuk pengalaman menyaksikan matahari terbit di Gunung Batur.',
-        'Pemandu Jeep berpengalaman',
-        'Tiket masuk ke destinasi yang termasuk dalam rencana perjalanan.'
+        '4WD Jeep for the Mount Batur sunrise experience.',
+        'Experienced Jeep driver and guide.',
+        'Entrance tickets to the destinations included in the itinerary.'
       ],
       [
-        'Makanan dan sarapan',
-        'Pengeluaran pribadi',
-        'Tips untuk pengemudi atau pemandu wisata',
-        'Aktivitas tambahan di luar rencana perjalanan',
-        'Segala biaya yang tidak disebutkan dalam bagian Termasuk'
+        'Food and breakfast.',
+        'Personal expenses.',
+        'Tips for the driver or tour guide.',
+        'Additional activities outside the itinerary.',
+        'Any expenses not mentioned in the What’s Included section.'
       ],
       [
-        'Pengalaman Jeep di Gunung Batur menggunakan kendaraan 4WD dan menyusuri jalur vulkanik berbatu dan tidak beraspal.',
-        'Suhu di sekitar Gunung Batur bisa dingin di pagi hari, jadi disarankan untuk membawa jaket atau pakaian hangat.',
-        'Disarankan untuk memakai sepatu atau sandal yang nyaman saat berjalan.',
-        'Visibilitas saat matahari terbit mungkin bergantung pada kondisi cuaca.',
-        'Sarapan dan makan siang tidak termasuk.',
-        'Biaya pribadi dan aktivitas di luar rencana perjalanan tidak termasuk.'
+        'The Mount Batur Jeep experience uses a 4WD vehicle and travels along rocky, unpaved volcanic trails.',
+        'Temperatures around Mount Batur can be cold in the early morning, so bringing a jacket or warm clothing is recommended.',
+        'Comfortable walking shoes or sandals are recommended.',
+        'Sunrise visibility may depend on weather conditions.',
+        'Breakfast and lunch are not included.',
+        'Personal expenses and activities outside the itinerary are not included.'
       ]
     ),
 
     createPackage(
       'jeep-only-transfer',
-      'Jeep Only - Dengan Antar Jemput',
-      'Opsi ini hanya menawarkan tur Jeep menyaksikan matahari terbit di Gunung Batur, tanpa kunjungan ke AKASA atau air terjun. Tur ini dwibahasa dalam bahasa Inggris dan Indonesia.',
+      'Jeep Only – With Hotel Transfer',
+      'This option offers only the Mount Batur sunrise Jeep Tour, without visits to AKASA or any waterfalls. The tour is available in both English and Indonesian.',
       [
         { min: 1, max: 1, price: 1400000 },
         { min: 2, max: 2, price: 725000 },
@@ -1211,7 +1214,7 @@ export class App {
     createPackage(
       'jeep-akasa',
       'Jeep + AKASA Cafe',
-      'Nikmati matahari terbit Gunung Batur dengan Jeep 4WD, dilanjutkan dengan bersantai di AKASA Specialty Coffee dengan pemandangan kaldera yang menakjubkan dan kopi Kintamani lokal. Tur ini dwibahasa dalam bahasa Inggris dan Indonesia.',
+      'Enjoy the Mount Batur sunrise with a 4WD Jeep adventure, followed by a relaxing visit to AKASA Specialty Coffee, where you can enjoy breathtaking caldera views and locally grown Kintamani coffee. The tour is available in both English and Indonesian.',
       [
         { min: 1, max: 1, price: 1410000 },
         { min: 2, max: 2, price: 730000 },
@@ -1225,17 +1228,17 @@ export class App {
       ],
       [
         ...jeepBaseIncludes,
-        'Kunjungan ke AKASA Specialty Coffee',
-        'Biaya parkir'
+        'Visit to AKASA Specialty Coffee.',
+        'Parking fees.'
       ],
       [
-        'Makanan dan sarapan',
-        'Makanan atau minuman tambahan di kafe',
-        'Pembelian kopi atau produk lainnya di perkebunan kopi.',
-        'Pengeluaran pribadi',
-        'Tips untuk pengemudi atau pemandu wisata',
-        'Aktivitas tambahan di luar rencana perjalanan',
-        'Segala biaya yang tidak disebutkan dalam bagian Termasuk'
+        'Food and breakfast.',
+        'Additional food or drinks at the cafe.',
+        'Coffee or other product purchases at the coffee plantation.',
+        'Personal expenses.',
+        'Tips for the driver or tour guide.',
+        'Additional activities outside the itinerary.',
+        'Any expenses not mentioned in the What’s Included section.'
       ],
       jeepBaseNotes
     ),
@@ -1243,7 +1246,7 @@ export class App {
     createPackage(
       'jeep-waterfall',
       'Jeep + Ulu Petanu Waterfall',
-      'Saksikan keindahan matahari terbit Gunung Batur dalam perjalanan jeep yang mendebarkan, lalu lanjutkan petualangan Anda ke air terjun yang indah. Nikmati perpaduan sempurna antara pemandangan gunung dan alam. Tur ini tersedia dalam dua bahasa, Inggris dan Indonesia.',
+      'Witness the beauty of the Mount Batur sunrise on an exciting Jeep adventure, then continue your journey to a beautiful waterfall. Enjoy the perfect combination of mountain views and nature. The tour is available in both English and Indonesian.',
       [
         { min: 1, max: 1, price: 1430000 },
         { min: 2, max: 2, price: 750000 },
@@ -1257,7 +1260,7 @@ export class App {
       ],
       [
         ...jeepBaseIncludes,
-        'Tiket masuk Air Terjun Ulu Petanu'
+        'Entrance ticket to Ulu Petanu Waterfall.'
       ],
       jeepBaseExcludes,
       jeepBaseNotes
@@ -1266,7 +1269,7 @@ export class App {
     createPackage(
       'jeep-hot-spring',
       'Jeep + Hot Spring',
-      'Saksikan matahari terbit di atas Gunung Batur dalam petualangan jeep yang seru, lalu bersantai di pemandian air panas alami. Nikmati pemandangan pegunungan yang menakjubkan dan pengalaman yang menenangkan setelah perjalanan Anda. Tur ini dwibahasa dalam bahasa Inggris dan Indonesia.',
+      'Witness the sunrise over Mount Batur on an exciting Jeep adventure, followed by a relaxing visit to a natural hot spring. Enjoy stunning mountain views and a refreshing experience after your adventure. The tour is available in both English and Indonesian.',
       [
         { min: 1, max: 1, price: 1600000 },
         { min: 2, max: 2, price: 900000 },
@@ -1280,15 +1283,15 @@ export class App {
       ],
       [
         ...jeepBaseIncludes,
-        'Kunjungan ke Pemandian Air Panas'
+        'Visit to the natural hot spring.'
       ],
       [
-        'Makanan dan sarapan',
-        'Makanan atau minuman tambahan di kafe',
-        'Pengeluaran pribadi',
-        'Tips untuk pengemudi atau pemandu wisata',
-        'Aktivitas tambahan di luar rencana perjalanan',
-        'Segala biaya yang tidak disebutkan dalam bagian Termasuk'
+        'Food and breakfast.',
+        'Additional food or drinks at the cafe.',
+        'Personal expenses.',
+        'Tips for the driver or tour guide.',
+        'Additional activities outside the itinerary.',
+        'Any expenses not mentioned in the What’s Included section.'
       ],
       jeepBaseNotes
     ),
@@ -1296,7 +1299,7 @@ export class App {
     createPackage(
       'jeep-akasa-waterfall',
       'Jeep + AKASA + Waterfall',
-      'Nikmati petualangan jeep saat matahari terbit di Gunung Batur, bersantai di Akasa Coffee yang indah, dan temukan air terjun yang menakjubkan. Rasakan kombinasi sempurna antara pemandangan matahari terbit, kopi, dan alam dalam satu perjalanan. Tur ini dwibahasa dalam bahasa Inggris dan Indonesia.',
+      'Enjoy a Mount Batur sunrise Jeep adventure, relax at the beautiful AKASA Coffee, and discover a stunning waterfall. Experience the perfect combination of sunrise views, coffee, and nature in one unforgettable trip. The tour is available in both English and Indonesian.',
       [
         { min: 1, max: 1, price: 1450000 },
         { min: 2, max: 2, price: 760000 },
@@ -1310,17 +1313,17 @@ export class App {
       ],
       [
         ...jeepBaseIncludes,
-        'Tiket masuk Air Terjun Ulu Petanu',
-        'Kunjungan ke AKASA Specialty Coffee'
+        'Entrance ticket to Ulu Petanu Waterfall.',
+        'Visit to AKASA Specialty Coffee.'
       ],
       [
-        'Makanan dan sarapan',
-        'Makanan atau minuman tambahan di kafe',
-        'Pembelian kopi atau produk lainnya di perkebunan kopi.',
-        'Pengeluaran pribadi',
-        'Tips untuk pengemudi atau pemandu wisata',
-        'Aktivitas tambahan di luar rencana perjalanan',
-        'Segala biaya yang tidak disebutkan dalam bagian Termasuk'
+        'Food and breakfast.',
+        'Additional food or drinks at the cafe.',
+        'Coffee or other product purchases at the coffee plantation.',
+        'Personal expenses.',
+        'Tips for the driver or tour guide.',
+        'Additional activities outside the itinerary.',
+        'Any expenses not mentioned in the What’s Included section.'
       ],
       jeepBaseNotes
     )
@@ -1329,8 +1332,8 @@ export class App {
   sunrisePackages: Package[] = [
     createPackage(
       'trek-sunrise-only-no-transfer',
-      'Sunrise Trekking - Tanpa Antar Jemput',
-      'Opsi ini menawarkan pendakian Gunung Batur saat matahari terbit tanpa antar jemput hotel. Pelanggan harus menuju titik pertemuan sendiri. Pemandu wisata akan memandu tur dalam bahasa Inggris dan Indonesia.',
+      'Sunrise Trekking – Without Hotel Transfer',
+      'This option offers a Mount Batur sunrise trekking experience without hotel transfers. Guests must arrange their own transportation to the meeting point. The tour is guided in both English and Indonesian.',
       [
         { min: 1, max: 1, price: 850000 },
         { min: 2, max: 2, price: 510000 },
@@ -1339,31 +1342,23 @@ export class App {
       ],
       trekkingPhotos,
       [
-        'Pemandu pendakian lokal Gunung Batur',
-        'Tiket masuk Gunung Batur',
-        'Senter',
-        'Sarapan (roti lapis pisang, telur rebus, biskuit)'
+        'Local Mount Batur trekking guide.',
+        'Mount Batur entrance ticket.',
+        'Flashlight.',
+        'Breakfast (banana sandwich, boiled eggs, and biscuits).'
       ],
       [
-        'Makanan dan minuman pribadi',
-        'Pengeluaran pribadi',
-        'Minuman panas di atas'
+        'Personal food and drinks.',
+        'Personal expenses.',
+        'Hot drinks at the summit.'
       ],
-      [
-        'Pendakian Gunung Batur membutuhkan tingkat kebugaran fisik yang moderat.',
-        'Kenakan sepatu hiking yang nyaman dan memiliki daya cengkeram yang baik.',
-        'Bawalah jaket atau pakaian hangat karena suhu di puncak bisa sangat dingin.',
-        'Bawalah air minum yang cukup untuk pendakian.',
-        'Senter telah disediakan.',
-        'Ikuti petunjuk pemandu lokal sepanjang perjalanan.',
-        'Mohon tiba di titik pertemuan setidaknya 15 menit sebelum waktu mulai yang dijadwalkan.'
-      ]
+      basicTrekkingNotes
     ),
 
     createPackage(
       'trek-sunrise-only-transfer',
-      'Sunrise Trekking - Dengan Antar Jemput',
-      'Opsi ini menawarkan pendakian Gunung Batur saat matahari terbit, termasuk antar-jemput hotel pulang pergi. Pemandu wisata akan memandu tur dalam bahasa Inggris dan Indonesia.',
+      'Sunrise Trekking – With Hotel Transfer',
+      'This option offers a Mount Batur sunrise trekking experience, including round-trip hotel transfers. The tour is guided in both English and Indonesian.',
       [
         { min: 1, max: 1, price: 1650000 },
         { min: 2, max: 2, price: 875000 },
@@ -1373,31 +1368,24 @@ export class App {
       ],
       trekkingPhotos,
       [
-        'Transfer hotel pulang pergi',
-        'Pemandu pendakian lokal Gunung Batur',
-        'Tiket masuk Gunung Batur',
-        'Senter',
-        'Sarapan (roti lapis pisang, telur rebus, biskuit)'
+        'Round-trip hotel transfers.',
+        'Local Mount Batur trekking guide.',
+        'Mount Batur entrance ticket.',
+        'Flashlight.',
+        'Breakfast (banana sandwich, boiled eggs, and biscuits).'
       ],
       [
-        'Makanan dan minuman pribadi',
-        'Pengeluaran pribadi',
-        'Minuman panas di atas'
+        'Personal food and drinks.',
+        'Personal expenses.',
+        'Hot drinks at the summit.'
       ],
-      [
-        'Pendakian Gunung Batur membutuhkan tingkat kebugaran fisik yang moderat.',
-        'Kenakan sepatu hiking yang nyaman dan memiliki daya cengkeram yang baik.',
-        'Bawalah jaket atau pakaian hangat karena suhu di puncak bisa sangat dingin.',
-        'Bawalah air minum yang cukup untuk pendakian.',
-        'Senter telah disediakan.',
-        'Ikuti petunjuk pemandu lokal sepanjang perjalanan.'
-      ]
+      basicTrekkingNotes.slice(0, 6)
     ),
 
     createPackage(
       'trek-sunrise-akasa',
       'Sunrise Trekking + AKASA Cafe',
-      'Opsi ini menawarkan pendakian Gunung Batur saat matahari terbit dengan pemberhentian untuk minum kopi di Akasa Cafe.',
+      'This option offers a Mount Batur sunrise trekking experience, followed by a relaxing coffee stop at AKASA Cafe.',
       [
         { min: 1, max: 1, price: 1675000 },
         { min: 2, max: 2, price: 900000 },
@@ -1412,7 +1400,7 @@ export class App {
       ],
       [
         ...trekBaseIncludes,
-        'Kunjungan ke AKASA Cafe'
+        'Visit to AKASA Cafe.'
       ],
       trekBaseExcludes,
       trekBaseNotes
@@ -1421,7 +1409,7 @@ export class App {
     createPackage(
       'trek-sunrise-kanto-lampo',
       'Sunrise Trekking + Kanto Lampo Waterfall',
-      'Opsi ini menawarkan pendakian Gunung Batur saat matahari terbit, dilanjutkan dengan kunjungan ke Air Terjun Kanto Lampo.',
+      'This option offers a Mount Batur sunrise trekking experience, followed by a visit to the beautiful Kanto Lampo Waterfall.',
       [
         { min: 1, max: 1, price: 1700000 },
         { min: 2, max: 2, price: 900000 },
@@ -1436,7 +1424,7 @@ export class App {
       ],
       [
         ...trekBaseIncludes,
-        'Kunjungan ke Air Terjun Kanto Lampo'
+        'Visit to Kanto Lampo Waterfall.'
       ],
       trekBaseExcludes,
       trekBaseNotes
@@ -1445,7 +1433,7 @@ export class App {
     createPackage(
       'trek-sunrise-rice',
       'Sunrise Trekking + Rice Terrace',
-      'Opsi ini menawarkan pendakian Gunung Batur saat matahari terbit dengan kunjungan ke Teras Sawah Uma Ceking.',
+      'This option offers a Mount Batur sunrise trekking experience, followed by a visit to the beautiful Uma Ceking Rice Terrace.',
       [
         { min: 1, max: 1, price: 1700000 },
         { min: 2, max: 2, price: 900000 },
@@ -1460,7 +1448,7 @@ export class App {
       ],
       [
         ...trekBaseIncludes,
-        'Kunjungan ke Teras Sawah Uma Ceking'
+        'Visit to Uma Ceking Rice Terrace.'
       ],
       trekBaseExcludes,
       trekBaseNotes
@@ -1469,7 +1457,7 @@ export class App {
     createPackage(
       'trek-sunrise-hot-spring',
       'Sunrise Trekking + Hot Spring',
-      'Opsi ini menawarkan pendakian Gunung Batur saat matahari terbit, serta berendam di kolam renang tanpa batas di Pemandian Air Panas Janu.',
+      'This option offers a Mount Batur sunrise trekking experience, followed by a relaxing swim in the infinity pool at Janu Hot Spring.',
       [
         { min: 1, max: 1, price: 1800000 },
         { min: 2, max: 2, price: 950000 },
@@ -1484,7 +1472,7 @@ export class App {
       ],
       [
         ...trekBaseIncludes,
-        'Kunjungan ke Pemandian Air Panas Janu'
+        'Visit to Janu Hot Spring.'
       ],
       trekBaseExcludes,
       trekBaseNotes
@@ -1494,8 +1482,8 @@ export class App {
   sunsetPackages: Package[] = [
     createPackage(
       'trek-sunset-no-transfer',
-      'Sunset Trekking - Tanpa Antar Jemput',
-      'Opsi ini menawarkan trekking Gunung Batur saat matahari terbenam tanpa antar jemput hotel. Pelanggan menuju titik pertemuan sendiri. Pemandu wisata akan memandu tur dalam bahasa Inggris dan Indonesia.',
+      'Sunset Trekking – Without Hotel Transfer',
+      'This option offers a Mount Batur sunset trekking experience without hotel transfers. Guests must arrange their own transportation to the meeting point. The tour is guided in both English and Indonesian.',
       [
         { min: 1, max: 1, price: 850000 },
         { min: 2, max: 2, price: 510000 },
@@ -1504,29 +1492,21 @@ export class App {
       ],
       trekkingPhotos,
       [
-        'Pemandu pendakian lokal Gunung Batur',
-        'Tiket masuk Gunung Batur',
-        'Senter'
+        'Local Mount Batur trekking guide.',
+        'Mount Batur entrance ticket.',
+        'Flashlight.'
       ],
       [
-        'Makanan dan minuman pribadi',
-        'Pengeluaran pribadi'
+        'Personal food and drinks.',
+        'Personal expenses.'
       ],
-      [
-        'Pendakian Gunung Batur membutuhkan tingkat kebugaran fisik yang moderat.',
-        'Kenakan sepatu hiking yang nyaman dan memiliki daya cengkeram yang baik.',
-        'Bawalah jaket atau pakaian hangat karena suhu di puncak bisa sangat dingin.',
-        'Bawalah air minum yang cukup untuk pendakian.',
-        'Senter telah disediakan.',
-        'Ikuti petunjuk pemandu lokal sepanjang perjalanan.',
-        'Mohon tiba di titik pertemuan setidaknya 15 menit sebelum waktu mulai yang dijadwalkan.'
-      ]
+      basicTrekkingNotes
     ),
 
     createPackage(
       'trek-sunset-transfer',
-      'Sunset Trekking - Dengan Antar Jemput',
-      'Opsi ini menawarkan pendakian Gunung Batur saat matahari terbenam dengan layanan antar-jemput hotel pulang pergi. Pemandu wisata akan memandu tur dalam bahasa Inggris dan Indonesia.',
+      'Sunset Trekking – With Hotel Transfer',
+      'This option offers a Mount Batur sunset trekking experience with round-trip hotel transfers. The tour is guided in both English and Indonesian.',
       [
         { min: 1, max: 1, price: 1650000 },
         { min: 2, max: 2, price: 875000 },
@@ -1536,24 +1516,16 @@ export class App {
       ],
       trekkingPhotos,
       [
-        'Transfer hotel pulang pergi',
-        'Pemandu pendakian lokal Gunung Batur',
-        'Tiket masuk Gunung Batur',
-        'Senter'
+        'Round-trip hotel transfers.',
+        'Local Mount Batur trekking guide.',
+        'Mount Batur entrance ticket.',
+        'Flashlight.'
       ],
       [
-        'Makanan dan minuman pribadi',
-        'Pengeluaran pribadi'
+        'Personal food and drinks.',
+        'Personal expenses.'
       ],
-      [
-        'Pendakian Gunung Batur membutuhkan tingkat kebugaran fisik yang moderat.',
-        'Kenakan sepatu hiking yang nyaman dan memiliki daya cengkeram yang baik.',
-        'Bawalah jaket atau pakaian hangat karena suhu di puncak bisa sangat dingin.',
-        'Bawalah air minum yang cukup untuk pendakian.',
-        'Senter telah disediakan.',
-        'Ikuti petunjuk pemandu lokal sepanjang perjalanan.',
-        'Mohon tiba di titik pertemuan setidaknya 15 menit sebelum waktu mulai yang dijadwalkan.'
-      ]
+      basicTrekkingNotes
     )
   ];
 
@@ -1568,9 +1540,15 @@ export class App {
   }
 
   get selectedPackage(): Package {
-    return this.activePackages.find(
+    const allPackages = [
+      ...this.jeepPackages,
+      ...this.sunrisePackages,
+      ...this.sunsetPackages
+    ];
+
+    return allPackages.find(
       pkg => pkg.id === this.selectedPackageId
-    ) ?? this.activePackages[0];
+    ) ?? this.jeepPackages[0];
   }
 
   get selectedPrice(): number | null {
@@ -1589,13 +1567,13 @@ export class App {
 
   get whatsappLink(): string {
     const priceText = this.selectedPrice === null
-      ? 'Mohon konfirmasi harga'
+      ? 'Please confirm the price'
       : this.formatPrice(this.selectedPrice);
 
     const message =
-      `Hello SB Tour Guide! Saya tertarik dengan paket ${this.selectedPackage.name}. ` +
-      `Jumlah peserta: ${this.participants}. ` +
-      `Harga per orang: ${priceText}.`;
+      `Hello SB Tour Guide! I am interested in ${this.selectedPackage.name}. ` +
+      `Number of participants: ${this.participants}. ` +
+      `Price per person: ${priceText}.`;
 
     return `https://wa.me/6285956346354?text=${encodeURIComponent(message)}`;
   }
@@ -1669,7 +1647,7 @@ export class App {
   }
 
   formatPrice(value: number): string {
-    return new Intl.NumberFormat('id-ID', {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'IDR',
       maximumFractionDigits: 0
