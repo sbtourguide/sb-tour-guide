@@ -12,6 +12,16 @@ type Package = {
   name: string;
   description: string;
   prices: PriceTier[];
+  photos: string[];
+  includes: string[];
+  excludes: string[];
+  notes: string[];
+};
+
+type Destination = {
+  name: string;
+  image: string;
+  description: string;
 };
 
 @Component({
@@ -21,12 +31,15 @@ type Package = {
     <header class="header">
       <a class="brand" href="#home" (click)="backToPackages()">
         <span class="brand-mark">SB</span>
-        <span>TOUR GUIDE</span>
+        <span class="brand-name">SB TOUR GUIDE</span>
       </a>
-      <a class="contact" [href]="whatsappLink">CONTACT US ↗</a>
+
+      <a class="header-contact" [href]="whatsappContact" target="_blank">
+        Contact Us
+      </a>
     </header>
 
-    <nav class="nav">
+    <nav class="navigation">
       <a href="#home" (click)="backToPackages()">Home</a>
       <a href="#experiences" (click)="backToPackages()">Experiences</a>
       <a href="#destinations" (click)="backToPackages()">Destinations</a>
@@ -37,279 +50,317 @@ type Package = {
     <main>
       <section class="hero" id="home">
         <div class="hero-content">
-          <span class="eyebrow">YOUR LOCAL GUIDE TO BALI</span>
-          <h1>Discover Bali.<br>Experience <em>Authentic.</em></h1>
+          <span class="eyebrow">WELCOME TO BALI</span>
+          <h1>Discover Bali.<br>Experience Authentic.</h1>
           <p>
-            Explore Bali with a local tour guide.
-            Discover breathtaking landscapes, rich Balinese culture,
-            unforgettable adventures and hidden gems.
+            Explore the beauty of Bali with unforgettable adventures
+            and authentic local experiences.
           </p>
-          <a href="#experiences" class="hero-button">
-            EXPLORE BALI TOURS ↗
+          <a href="#experiences" class="primary-button">
+            EXPLORE EXPERIENCES
           </a>
         </div>
-        <span class="hero-number">01 / BALI EXPERIENCE</span>
       </section>
 
       <section class="intro section" id="experiences">
-        <span class="eyebrow dark">EXPLORE BALI / 2026</span>
-        <h2>Discover your next<br><em>adventure.</em></h2>
-        <p>
-          Experience the best of Bali with local tour guides.
-          Enjoy breathtaking Mount Batur sunrise tours,
-          scenic trekking and authentic Balinese culture.
+        <span class="eyebrow">YOUR BALI ADVENTURE</span>
+        <h2>Explore Beautiful Places in Bali</h2>
+        <p class="intro-description">
+          Discover your next adventure with our carefully selected
+          Bali experiences.
         </p>
 
-        <div class="category-grid">
-          <button class="category-card jeep-card"
-            [class.active]="activeTab === 'jeep'"
-            (click)="changeTab('jeep'); goToPackages()">
-            <span class="category-number">01</span>
-            <span class="category-icon">✦</span>
-            <strong>MOUNT BATUR<br>JEEP TOUR</strong>
-            <span class="category-bottom">EXPLORE JEEP TOUR ↗</span>
+        <div class="experience-grid">
+          <button class="experience-card" (click)="chooseCategory('jeep')">
+            <img
+              src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1000"
+              alt="Bali Jeep Adventure"
+            >
+            <span class="experience-overlay">
+              <small>EXPLORE BALI</small>
+              <strong>Mount Batur Jeep Tour</strong>
+              <span>DISCOVER MORE →</span>
+            </span>
           </button>
 
-          <button class="category-card trek-card"
-            [class.active]="activeTab === 'trekking'"
-            (click)="changeTab('trekking'); goToPackages()">
-            <span class="category-number">02</span>
-            <span class="category-icon">△</span>
-            <strong>MOUNT BATUR<br>TREKKING</strong>
-            <span class="category-bottom">EXPLORE TREKKING ↗</span>
+          <button class="experience-card" (click)="chooseCategory('trekking')">
+            <img
+              src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1000"
+              alt="Mountain trekking"
+            >
+            <span class="experience-overlay">
+              <small>UNFORGETTABLE EXPERIENCE</small>
+              <strong>Mount Batur Trekking</strong>
+              <span>DISCOVER MORE →</span>
+            </span>
           </button>
         </div>
       </section>
 
       <section class="destinations section" id="destinations">
-        <span class="eyebrow dark">DISCOVER BALI / DESTINATIONS</span>
-        <h2>Explore beautiful<br><em>places in Bali.</em></h2>
-        <p class="destinations-intro">
-          Discover Bali's beautiful volcanic landscapes,
-          mountain cafes, refreshing waterfalls and relaxing
-          natural hot springs with SB Tour Guide.
-        </p>
+        <div class="section-heading">
+          <span class="eyebrow">EXPLORE BALI</span>
+          <h2>Discover Beautiful Destinations</h2>
+          <p>Explore some of the most beautiful places in Bali.</p>
+        </div>
 
-        @for (place of destinations; track place.title; let i = $index) {
-          <article class="destination-item">
-            <div class="destination-photo">
-              <img [src]="place.photo" [alt]="place.title">
-              <span class="photo-number">0{{ i + 1 }} / DESTINATION</span>
-            </div>
-            <div class="destination-content">
-              <span class="destination-category">{{ place.category }}</span>
-              <h3>{{ place.title }}</h3>
-              <p>{{ place.description }}</p>
-            </div>
-          </article>
-        }
+        <div class="destination-grid">
+          @for (destination of destinations; track destination.name) {
+            <article class="destination-card">
+              <img [src]="destination.image" [alt]="destination.name">
+              <div class="destination-info">
+                <h3>{{ destination.name }}</h3>
+                <p>{{ destination.description }}</p>
+              </div>
+            </article>
+          }
+        </div>
       </section>
 
       <section class="packages section" id="packages">
-        <div class="section-heading">
-          <div>
-            <span class="eyebrow dark">CHOOSE YOUR JOURNEY</span>
-            <h2>
-              {{ activeTab === 'jeep' ? 'Jeep Tour' : 'Mountain Trekking' }}<br>
-              <em>{{ activeTab === 'jeep' ? 'Packages.' : 'Experiences.' }}</em>
-            </h2>
-          </div>
-          <span class="edition">SB / 001</span>
-        </div>
-
-        @if (activeTab === 'trekking') {
-          <div class="tabs">
-            <button [class.selected]="trekTime === 'sunrise'"
-              (click)="changeTrekTime('sunrise')">SUNRISE</button>
-            <button [class.selected]="trekTime === 'sunset'"
-              (click)="changeTrekTime('sunset')">SUNSET</button>
-          </div>
-        }
-
         @if (!detailView) {
-          <div class="package-list">
-            @for (pkg of activePackages; track pkg.id; let i = $index) {
-              <button class="package-item" (click)="openPackage(pkg)">
-                <span class="package-index">0{{ i + 1 }}</span>
-                <span class="package-name">
-                  <strong>{{ pkg.name }}</strong>
-                  <small>{{ pkg.description }}</small>
-                </span>
-                <span class="arrow">↗</span>
+          <div class="section-heading">
+            <span class="eyebrow">CHOOSE YOUR EXPERIENCE</span>
+            <h2>Our Tour Packages</h2>
+            <p>Find the perfect experience for your Bali adventure.</p>
+          </div>
+
+          <div class="category-tabs">
+            <button
+              [class.active]="activeTab === 'jeep'"
+              (click)="changeTab('jeep')"
+            >
+              JEEP TOUR
+            </button>
+            <button
+              [class.active]="activeTab === 'trekking'"
+              (click)="changeTab('trekking')"
+            >
+              MOUNT BATUR TREKKING
+            </button>
+          </div>
+
+          @if (activeTab === 'trekking') {
+            <div class="time-tabs">
+              <button
+                [class.active]="trekTime === 'sunrise'"
+                (click)="changeTrekTime('sunrise')"
+              >
+                SUNRISE
               </button>
+              <button
+                [class.active]="trekTime === 'sunset'"
+                (click)="changeTrekTime('sunset')"
+              >
+                SUNSET
+              </button>
+            </div>
+          }
+
+          <div class="package-list">
+            @for (pkg of activePackages; track pkg.id) {
+              <article class="package-item">
+                <div class="package-item-info">
+                  <span class="package-number">BALI EXPERIENCE</span>
+                  <h3>{{ pkg.name }}</h3>
+                  <p>{{ pkg.description }}</p>
+                </div>
+                <button
+                  class="package-button"
+                  (click)="openPackage(pkg)"
+                >
+                  VIEW PACKAGE →
+                </button>
+              </article>
             }
           </div>
         } @else {
-          <div class="detail-page">
+          <div class="detail-container">
             <button class="back-button" (click)="returnToPackages()">
               ← BACK TO PACKAGES
             </button>
 
             <div class="detail-heading">
-              <span class="eyebrow dark">YOUR SELECTED EXPERIENCE</span>
+              <span class="eyebrow">YOUR SELECTED EXPERIENCE</span>
               <h2>{{ selectedPackage.name }}</h2>
               <p>{{ selectedPackage.description }}</p>
             </div>
 
             <div class="gallery">
               @for (photo of selectedPhotos; track photo; let i = $index) {
-                <div class="gallery-photo">
-                  <img [src]="photo"
-                    [alt]="selectedPackage.name + ' photo ' + (i + 1)">
-                </div>
+                <img
+                  [src]="photo"
+                  [class.gallery-main]="i === 0"
+                  [alt]="selectedPackage.name"
+                >
               }
             </div>
 
-            <p class="gallery-caption">SWIPE TO EXPLORE THE EXPERIENCE →</p>
+            <div class="detail-columns">
+              <div class="detail-information">
+                <div class="detail-box">
+                  <h3>About This Experience</h3>
+                  <p>{{ selectedPackage.description }}</p>
+                </div>
 
-            <div class="detail-description">
-              <span class="eyebrow dark">ABOUT THIS EXPERIENCE</span>
-              <h3>Discover the experience.</h3>
-              <p>{{ selectedDetailDescription }}</p>
-            </div>
+                <div class="detail-box">
+                  <h3>What's Included</h3>
+                  <ul>
+                    @for (item of selectedIncludes; track item) {
+                      <li>{{ item }}</li>
+                    }
+                  </ul>
+                </div>
 
-            <div class="detail-info">
-              <div class="info-box">
-                <span>01 / INCLUDED</span>
-                <h3>What's included</h3>
-                <ul>
-                  @for (item of selectedIncludes; track item) {
-                    <li>{{ item }}</li>
-                  }
-                </ul>
+                <div class="detail-box">
+                  <h3>What's Excluded</h3>
+                  <ul>
+                    @for (item of selectedExcludes; track item) {
+                      <li>{{ item }}</li>
+                    }
+                  </ul>
+                </div>
+
+                <div class="detail-box">
+                  <h3>Important Notes</h3>
+                  <ul>
+                    @for (item of selectedNotes; track item) {
+                      <li>{{ item }}</li>
+                    }
+                  </ul>
+                </div>
               </div>
 
-              <div class="info-box">
-                <span>02 / NOT INCLUDED</span>
-                <h3>What's excluded</h3>
-                <ul>
-                  @for (item of activeExcludes; track item) {
-                    <li>{{ item }}</li>
-                  }
-                </ul>
-              </div>
-            </div>
+              <aside class="booking-box">
+                <span class="eyebrow">BOOK YOUR ADVENTURE</span>
+                <h3>Booking Details</h3>
 
-            <div class="notice">
-              <span class="eyebrow dark">GOOD TO KNOW</span>
-              <h3>Know before you go.</h3>
-              <ul>
-                @for (item of selectedNotes; track item) {
-                  <li>{{ item }}</li>
-                }
-              </ul>
-            </div>
-
-            <div class="booking-card">
-              <span class="eyebrow dark">BOOK YOUR EXPERIENCE</span>
-              <h3>Choose your participants.</h3>
-
-              <div class="field">
-                <label for="participants">NUMBER OF PARTICIPANTS</label>
-                <select id="participants" [value]="participants"
-                  (change)="onParticipantsChange($event)">
-                  @for (n of participantOptions; track n) {
-                    <option [value]="n">
-                      {{ n }} {{ n === 1 ? 'Person' : 'People' }}
-                    </option>
+                <label for="participants">Number of Participants</label>
+                <select
+                  id="participants"
+                  [value]="participants"
+                  (change)="onParticipantsChange($event)"
+                >
+                  @for (number of participantOptions; track number) {
+                    <option [value]="number">{{ number }} Person(s)</option>
                   }
                 </select>
-              </div>
 
-              <div class="price-area">
-                <span>PRICE PER PERSON</span>
-                @if (selectedPrice !== null) {
-                  <strong>{{ formatPrice(selectedPrice) }}</strong>
-                  <small>
-                    Total for {{ participants }} people:
-                    {{ formatPrice(selectedPrice * participants) }}
-                  </small>
-                } @else {
-                  <strong>Contact us</strong>
-                  <small>Special group pricing available on request.</small>
-                }
-              </div>
+                <div class="price-line">
+                  <span>Price per person</span>
+                  <strong>
+                    @if (selectedPrice !== null) {
+                      {{ formatPrice(selectedPrice) }}
+                    } @else {
+                      Please confirm
+                    }
+                  </strong>
+                </div>
 
-              <a class="book-button" [href]="whatsappLink"
-                target="_blank" rel="noopener">
-                BOOK THIS EXPERIENCE ↗
-              </a>
+                <div class="total-price">
+                  <span>Total Price</span>
+                  <strong>
+                    @if (selectedPrice !== null) {
+                      {{ formatPrice(selectedPrice * participants) }}
+                    } @else {
+                      Contact us
+                    }
+                  </strong>
+                </div>
 
-              @if (activeTab === 'jeep') {
-                <a class="gyg-button"
-                  href="https://www.getyourguide.com/kintamani-l118050/bali-sokasi-making-strawberry-garden-coffee-tour-t1517626/"
-                  target="_blank" rel="noopener">
-                  BOOK ON GETYOURGUIDE ↗
+                <a
+                  class="whatsapp-button"
+                  [href]="whatsappLink"
+                  target="_blank"
+                >
+                  BOOK VIA WHATSAPP
                 </a>
-              } @else if (trekTime === 'sunrise') {
-                <a class="gyg-button"
-                  href="https://www.getyourguide.com/kintamani-l118050/bali-tukad-seganing-farm-cafe-private-tour-with-pickup-t1501628/"
-                  target="_blank" rel="noopener">
-                  BOOK ON GETYOURGUIDE ↗
-                </a>
-              } @else {
-                <a class="gyg-button"
-                  href="https://www.getyourguide.com/bangli-city-l269190/bali-penglipuran-village-kehen-temple-coffee-tour-t1500435/"
-                  target="_blank" rel="noopener">
-                  BOOK ON GETYOURGUIDE ↗
-                </a>
-              }
 
-              <p class="secure-note">
-                LOCAL EXPERIENCE · BALI, INDONESIA
-              </p>
+                <p class="booking-note">
+                  Contact us to confirm availability and your booking.
+                </p>
+              </aside>
             </div>
           </div>
         }
       </section>
 
-      <section class="about-section section" id="about">
-        <span class="eyebrow dark">THE EXPERIENCE / ABOUT US</span>
-        <h2>Beyond the <em>ordinary.</em></h2>
-        <p>
-          SB Tour Guide offers memorable Bali experiences with local
-          guides. Explore Mount Batur, discover beautiful destinations
-          and enjoy the island at your own pace.
-        </p>
+      <section class="about section" id="about">
+        <div class="about-image">
+          <img
+            src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1200"
+            alt="Beautiful Bali scenery"
+          >
+        </div>
+        <div class="about-content">
+          <span class="eyebrow">ABOUT US</span>
+          <h2>Experience Bali With Local Experts</h2>
+          <p>
+            SB Tour Guide is dedicated to creating memorable
+            experiences in Bali. We help travelers discover
+            beautiful destinations, local culture, and exciting
+            adventures.
+          </p>
+          <p>
+            From Mount Batur adventures to beautiful waterfalls,
+            we are here to make your Bali journey special.
+          </p>
+          <a [href]="whatsappContact" target="_blank" class="primary-button">
+            CONTACT US
+          </a>
+        </div>
       </section>
 
       <section class="final-cta">
-        <span class="eyebrow">YOUR BALI ADVENTURE STARTS HERE</span>
-        <h2>Let's explore<br>Bali together.</h2>
-        <a [href]="whatsappLink" target="_blank" rel="noopener">
-          PLAN YOUR JOURNEY ↗
+        <span class="eyebrow">READY FOR YOUR NEXT ADVENTURE?</span>
+        <h2>Let's Explore Bali Together</h2>
+        <p>Create unforgettable memories with SB Tour Guide.</p>
+        <a [href]="whatsappContact" target="_blank" class="primary-button">
+          CONTACT US ON WHATSAPP
         </a>
       </section>
     </main>
 
-    <footer>
-      <a class="brand footer-brand" href="#home">
+    <footer class="footer">
+      <div class="footer-brand">
         <span class="brand-mark">SB</span>
-        <span>TOUR GUIDE</span>
-      </a>
-      <p>Discover Bali. Experience More.</p>
-      <small>© 2026 SB TOUR GUIDE. ALL RIGHTS RESERVED.</small>
+        <strong>SB TOUR GUIDE</strong>
+      </div>
+      <p>Discover Bali. Experience Authentic.</p>
+      <p class="copyright">
+        © {{ currentYear }} SB Tour Guide. All Rights Reserved.
+      </p>
     </footer>
   `,
   styles: [`
-    * { box-sizing: border-box; }
-
-    :host {
-      display: block;
-      color: #171717;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f7f7f5;
+    * {
+      box-sizing: border-box;
     }
 
-    a { color: inherit; text-decoration: none; }
-    button, select { font: inherit; }
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #252923;
+    }
+
+    button, a, select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
 
     .header {
-      min-height: 84px;
-      padding: 18px 7%;
+      height: 76px;
+      padding: 0 7%;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       background: #fff;
     }
 
@@ -317,659 +368,662 @@ type Package = {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 17px;
+      text-decoration: none;
+      color: #263b30;
       font-weight: 800;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
     }
 
     .brand-mark {
-      background: #d92d3b;
-      color: white;
-      width: 47px;
-      height: 47px;
+      width: 42px;
+      height: 42px;
       display: grid;
       place-items: center;
-      font-size: 19px;
+      border-radius: 50%;
+      background: #314d3c;
+      color: white;
+      font-size: 15px;
       letter-spacing: 0;
     }
 
-    .contact {
-      background: #171717;
-      color: white;
-      padding: 14px 19px;
-      font-size: 11px;
+    .brand-name {
+      font-size: 15px;
+    }
+
+    .header-contact {
+      padding: 12px 22px;
+      border: 1px solid #314d3c;
+      color: #314d3c;
+      text-decoration: none;
+      font-size: 12px;
       font-weight: bold;
       letter-spacing: 1px;
     }
 
-    .nav {
+    .navigation {
+      min-height: 48px;
       display: flex;
-      gap: 30px;
-      padding: 18px 7%;
-      background: white;
-      border-top: 1px solid #eee;
-      font-size: 13px;
-      color: #686868;
-      overflow-x: auto;
-      white-space: nowrap;
+      justify-content: center;
+      align-items: center;
+      gap: 38px;
+      background: #f4f4f0;
+      padding: 12px;
     }
 
-    .nav a:hover { color: #d92d3b; }
+    .navigation a {
+      color: #39463c;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .navigation a:hover {
+      color: #a47c46;
+    }
 
     .hero {
-      min-height: 550px;
-      margin: 0 2%;
-      padding: 85px 7%;
-      color: white;
-      position: relative;
+      min-height: 570px;
       display: flex;
       align-items: center;
-      overflow: hidden;
+      padding: 70px 10%;
       background:
-        linear-gradient(90deg,rgba(0,0,0,.75),rgba(0,0,0,.12)),
-        linear-gradient(135deg,#24333c,#777b75 50%,#c1a88a);
-    }
-
-    .hero:after {
-      content: "BALI";
-      position: absolute;
-      right: 2%;
-      bottom: -55px;
-      font-size: clamp(100px,22vw,260px);
-      font-weight: 900;
-      color: rgba(255,255,255,.08);
-      pointer-events: none;
+        linear-gradient(90deg, rgba(16, 29, 22, .75), rgba(16, 29, 22, .1)),
+        url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1800')
+        center/cover;
+      color: white;
     }
 
     .hero-content {
-      max-width: 620px;
-      position: relative;
-      z-index: 1;
+      max-width: 650px;
     }
 
     .eyebrow {
-      font-size: 10px;
-      letter-spacing: 3px;
+      color: #ad8b5b;
+      font-size: 11px;
       font-weight: bold;
+      letter-spacing: 3px;
     }
 
     .hero h1 {
-      font-size: clamp(42px,7vw,76px);
-      line-height: .99;
-      letter-spacing: -3px;
-      margin: 24px 0;
-    }
-
-    h1 em, h2 em {
-      color: #dc3545;
-      font-style: normal;
+      font-family: Georgia, serif;
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 1.08;
+      margin: 22px 0;
+      font-weight: 500;
     }
 
     .hero p {
-      max-width: 440px;
+      max-width: 470px;
       line-height: 1.8;
-      color: #eee;
+      font-size: 15px;
+      color: #eeeeea;
+      margin-bottom: 30px;
     }
 
-    .hero-button {
+    .primary-button {
       display: inline-block;
-      margin-top: 22px;
-      padding: 16px 20px;
-      background: #d92d3b;
+      padding: 16px 25px;
+      background: #344f3e;
+      color: white;
+      text-decoration: none;
+      border: none;
       font-size: 11px;
       font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .hero-number {
-      position: absolute;
-      bottom: 24px;
-      right: 35px;
-      font-size: 10px;
-      letter-spacing: 2px;
-    }
-
-    .section { padding: 90px 8%; }
-    .dark { color: #777; }
-
-    h2 {
-      font-size: clamp(36px,5vw,58px);
-      letter-spacing: -2px;
-      line-height: 1.05;
-      margin: 18px 0;
-    }
-
-    .intro > p, .about-section > p {
-      color: #777;
-      max-width: 530px;
-      line-height: 1.8;
-    }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-top: 45px;
-    }
-
-    .category-card {
-      min-height: 260px;
-      padding: 28px;
-      text-align: left;
-      color: white;
-      border: 0;
-      position: relative;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-between;
+      letter-spacing: 1.5px;
       transition: .2s;
     }
 
-    .jeep-card { background: linear-gradient(135deg,#353c3e,#858b80); }
-    .trek-card { background: linear-gradient(135deg,#3d4149,#9a8773); }
-
-    .category-card.active {
-      outline: 3px solid #d92d3b;
-      outline-offset: -3px;
+    .primary-button:hover,
+    .whatsapp-button:hover {
+      background: #a47c46;
     }
 
-    .category-card strong {
-      font-size: clamp(22px,3vw,34px);
-      line-height: 1.1;
+    .section {
+      padding: 85px 8%;
+      scroll-margin-top: 20px;
     }
 
-    .category-number { font-size: 12px; }
+    .intro {
+      text-align: center;
+      background: #fafaf7;
+    }
 
-    .category-icon {
+    .section h2,
+    .about h2,
+    .final-cta h2 {
+      font-family: Georgia, serif;
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 500;
+      margin: 15px 0;
+      color: #293c30;
+    }
+
+    .intro-description,
+    .section-heading > p {
+      color: #777d75;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .experience-grid {
+      max-width: 1100px;
+      margin: 45px auto 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .experience-card {
+      position: relative;
+      padding: 0;
+      border: none;
+      height: 360px;
+      overflow: hidden;
+      text-align: left;
+      background: #ddd;
+    }
+
+    .experience-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+
+    .experience-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .experience-overlay {
       position: absolute;
-      right: 28px;
-      top: 22px;
-      font-size: 35px;
-      color: #e9d5bd;
+      inset: 0;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      color: white;
+      background: linear-gradient(transparent, rgba(0,0,0,.75));
     }
 
-    .category-bottom {
+    .experience-overlay small {
+      color: #e3c18d;
       font-size: 10px;
       letter-spacing: 2px;
     }
 
-    .destinations { background: #fff; }
-
-    .destinations-intro {
-      color: #777;
-      max-width: 550px;
-      line-height: 1.8;
-      margin-bottom: 45px;
+    .experience-overlay strong {
+      font-family: Georgia, serif;
+      font-size: 29px;
+      font-weight: 500;
+      margin: 10px 0;
     }
 
-    .destination-item { margin-top: 55px; }
-
-    .destination-photo {
-      width: 100%;
-      height: 390px;
-      border-radius: 7px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .destination-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .destination-photo::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(0deg,rgba(0,0,0,.45),transparent 55%);
-      pointer-events: none;
-    }
-
-    .photo-number {
-      position: absolute;
-      z-index: 1;
-      bottom: 22px;
-      left: 22px;
-      color: white;
-      font-size: 11px;
+    .experience-overlay span {
+      font-size: 10px;
       letter-spacing: 2px;
-      font-weight: bold;
     }
 
-    .destination-content { padding: 28px 0 15px; }
-
-    .destination-category {
-      color: #a95b2a;
-      font-size: 13px;
-      letter-spacing: 3px;
-      font-weight: bold;
+    .destinations {
+      background: #fff;
     }
 
-    .destination-content h3 {
-      color: #171c29;
-      font-size: clamp(23px,4vw,34px);
-      line-height: 1.15;
-      margin: 22px 0 12px;
+    .section-heading {
+      text-align: center;
+      margin-bottom: 40px;
     }
 
-    .destination-content p {
-      color: #626875;
-      font-size: 17px;
-      line-height: 1.85;
-      margin: 12px 0 22px;
+    .destination-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .destination-card {
+      background: #f8f8f4;
+      overflow: hidden;
+    }
+
+    .destination-card img {
+      width: 100%;
+      height: 220px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .destination-info {
+      padding: 20px;
+    }
+
+    .destination-info h3 {
+      font-family: Georgia, serif;
+      font-size: 19px;
+      font-weight: 500;
+      color: #344b39;
+      margin: 0 0 10px;
+    }
+
+    .destination-info p {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.7;
+      margin: 0;
     }
 
     .packages {
       background: #efefec;
-      scroll-margin-top: 20px;
     }
 
-    .section-heading {
+    .category-tabs,
+    .time-tabs {
       display: flex;
-      justify-content: space-between;
-      align-items: end;
-    }
-
-    .edition {
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: #999;
-      padding-bottom: 25px;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
       margin: 30px 0;
     }
 
-    .tabs button {
-      border: 1px solid #ccc;
+    .category-tabs button,
+    .time-tabs button {
+      padding: 14px 24px;
+      border: 1px solid #b8bdb6;
       background: transparent;
-      padding: 13px 24px;
-      font-size: 10px;
+      color: #354638;
+      font-size: 11px;
+      font-weight: bold;
       letter-spacing: 1px;
-      cursor: pointer;
     }
 
-    .tabs button.selected {
-      background: #171717;
+    .category-tabs button.active,
+    .time-tabs button.active {
+      background: #344f3e;
       color: white;
-      border-color: #171717;
+      border-color: #344f3e;
     }
 
-    .package-list { margin-top: 35px; }
+    .time-tabs {
+      margin-top: -10px;
+      margin-bottom: 30px;
+    }
+
+    .time-tabs button {
+      padding: 11px 28px;
+    }
+
+    .package-list {
+      max-width: 950px;
+      margin: auto;
+    }
 
     .package-item {
-      width: 100%;
-      padding: 25px 18px;
+      background: white;
+      margin-bottom: 14px;
+      padding: 25px 30px;
       display: flex;
-      gap: 20px;
       align-items: center;
-      text-align: left;
-      background: transparent;
-      border: 0;
-      border-bottom: 1px solid #d6d6d2;
-      cursor: pointer;
-      transition: .2s;
+      justify-content: space-between;
+      gap: 20px;
+      border: 1px solid #e5e5df;
     }
 
-    .package-item:hover {
-      background: white;
-      padding-left: 25px;
-    }
-
-    .package-index {
-      font-size: 14px;
-      color: #999;
-    }
-
-    .package-name {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex: 1;
-    }
-
-    .package-name strong {
-      font-size: 19px;
-      color: #3985ef;
-    }
-
-    .package-name small {
-      font-size: 14px;
-      color: #888;
-      line-height: 1.6;
-    }
-
-    .arrow { font-size: 23px; }
-
-    .detail-page {
-      margin-top: 35px;
-      background: #fff;
-      padding: 28px;
-    }
-
-    .back-button {
-      border: 1px solid #ddd;
-      background: white;
-      padding: 13px 18px;
-      cursor: pointer;
-      font-size: 11px;
-      letter-spacing: 1px;
-      font-weight: bold;
-    }
-
-    .back-button:hover {
-      background: #171717;
-      color: white;
-    }
-
-    .detail-heading { padding: 35px 0 20px; }
-
-    .detail-heading h2 {
-      font-size: clamp(30px,5vw,46px);
-      margin: 15px 0;
-    }
-
-    .detail-heading p {
-      color: #777;
-      line-height: 1.8;
-      max-width: 700px;
-    }
-
-    .gallery {
-      display: flex;
-      gap: 14px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      padding: 5px 0 15px;
-    }
-
-    .gallery-photo {
-      flex: 0 0 78%;
-      height: 280px;
-      overflow: hidden;
-      border-radius: 6px;
-      scroll-snap-align: start;
-      background: #eee;
-    }
-
-    .gallery-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .gallery-caption {
-      color: #999;
+    .package-number {
+      color: #a47c46;
       font-size: 9px;
-      letter-spacing: 2px;
-      margin: 8px 0 35px;
-    }
-
-    .detail-description {
-      padding: 25px 0 35px;
-      border-bottom: 1px solid #eee;
-    }
-
-    .detail-description h3 {
-      font-size: 27px;
-      margin: 15px 0;
-    }
-
-    .detail-description p {
-      color: #777;
-      font-size: 14px;
-      line-height: 1.9;
-    }
-
-    .detail-info {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 30px;
-    }
-
-    .info-box {
-      padding: 25px;
-      border: 1px solid #e2e2df;
-    }
-
-    .info-box > span {
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: #999;
-    }
-
-    .info-box h3, .notice h3 { font-size: 22px; }
-
-    ul {
-      padding-left: 20px;
-      color: #777;
-      font-size: 13px;
-      line-height: 2;
-    }
-
-    .notice {
-      background: #f0f0ed;
-      margin-top: 22px;
-      padding: 28px;
-    }
-
-    .booking-card {
-      background: #fafaf8;
-      border: 1px solid #e5e5e0;
-      padding: 28px;
-      margin-top: 30px;
-    }
-
-    .booking-card h3 {
-      font-size: 25px;
-      margin: 18px 0;
-    }
-
-    .field { margin: 28px 0; }
-
-    .field label, .price-area span {
-      display: block;
-      font-size: 10px;
-      letter-spacing: 1.5px;
       font-weight: bold;
-      color: #777;
-      margin-bottom: 10px;
+      letter-spacing: 2px;
     }
 
-    select {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #ddd;
-      background: white;
-      color: #222;
-    }
-
-    .price-area {
-      background: #efefec;
-      padding: 20px;
-    }
-
-    .price-area strong {
-      display: block;
-      font-size: 31px;
+    .package-item h3 {
+      color: #344b39;
+      font-family: Georgia, serif;
+      font-size: 21px;
+      font-weight: 500;
       margin: 8px 0;
     }
 
-    .price-area small {
-      color: #777;
+    .package-item p {
       font-size: 12px;
+      color: #777;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .package-button {
+      flex-shrink: 0;
+      padding: 13px 18px;
+      border: none;
+      background: #344f3e;
+      color: white;
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .package-button:hover {
+      background: #a47c46;
+    }
+
+    .detail-container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .back-button {
+      background: none;
+      border: none;
+      color: #344f3e;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      padding: 10px 0;
+      margin-bottom: 25px;
+    }
+
+    .detail-heading {
+      margin-bottom: 25px;
+    }
+
+    .detail-heading h2 {
+      margin: 10px 0;
+    }
+
+    .detail-heading p {
+      color: #737970;
       line-height: 1.7;
-    }
-
-    .book-button {
-      display: block;
-      text-align: center;
-      background: #d92d3b;
-      color: white;
-      padding: 18px;
-      margin-top: 20px;
-      font-size: 11px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .gyg-button {
-      display: block;
-      text-align: center;
-      padding: 17px;
-      margin-top: 10px;
-      border: 1px solid #222;
-      color: #222;
-      font-size: 11px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .gyg-button:hover {
-      background: #222;
-      color: white;
-    }
-
-    .secure-note {
-      font-size: 9px;
-      text-align: center;
-      color: #999;
-      letter-spacing: 1.5px;
-      margin-top: 18px;
-    }
-
-    .about-section > p {
-      max-width: 800px;
       font-size: 14px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 180px 180px;
+      gap: 12px;
+      margin-bottom: 35px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery .gallery-main {
+      grid-row: span 2;
+    }
+
+    .detail-columns {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .detail-box {
+      background: white;
+      padding: 25px;
+      margin-bottom: 16px;
+    }
+
+    .detail-box h3,
+    .booking-box h3 {
+      font-family: Georgia, serif;
+      color: #344b39;
+      font-size: 21px;
+      font-weight: 500;
+      margin: 0 0 18px;
+    }
+
+    .detail-box p,
+    .detail-box li {
+      color: #737970;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .detail-box ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .booking-box {
+      position: sticky;
+      top: 20px;
+      background: white;
+      padding: 28px;
+      border: 1px solid #e2e3dc;
+    }
+
+    .booking-box h3 {
+      margin-top: 12px;
+    }
+
+    .booking-box label {
+      display: block;
+      margin: 25px 0 9px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .booking-box select {
+      width: 100%;
+      padding: 13px;
+      background: white;
+      border: 1px solid #d4d7d0;
+      color: #344b39;
+    }
+
+    .price-line,
+    .total-price {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 17px 0;
+      border-bottom: 1px solid #e7e7e1;
+      font-size: 12px;
+    }
+
+    .price-line strong {
+      color: #344b39;
+      text-align: right;
+    }
+
+    .total-price {
+      font-size: 14px;
+      font-weight: bold;
+      color: #344b39;
+      border: none;
+    }
+
+    .total-price strong {
+      text-align: right;
+    }
+
+    .whatsapp-button {
+      display: block;
+      padding: 16px;
+      text-align: center;
+      background: #344f3e;
+      color: white;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-top: 15px;
+    }
+
+    .booking-note {
+      color: #858980;
+      font-size: 11px;
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 55px;
+      align-items: center;
+      background: #fafaf7;
+    }
+
+    .about-image img {
+      width: 100%;
+      min-height: 350px;
+      object-fit: cover;
+    }
+
+    .about-content p {
+      color: #737970;
+      font-size: 13px;
       line-height: 1.9;
+      margin: 18px 0;
     }
 
     .final-cta {
-      background: #202326;
-      color: white;
       text-align: center;
-      padding: 90px 20px;
+      padding: 85px 20px;
+      background: #314b39;
+      color: white;
     }
 
     .final-cta h2 {
-      font-size: clamp(42px,6vw,68px);
+      color: white;
     }
 
-    .final-cta a {
-      display: inline-block;
-      margin-top: 20px;
-      background: #d92d3b;
-      padding: 17px 25px;
-      font-size: 11px;
-      font-weight: bold;
-      letter-spacing: 1px;
+    .final-cta p {
+      color: #e0e5df;
+      font-size: 13px;
+      margin: 20px 0 30px;
     }
 
-    footer {
-      padding: 35px 8%;
-      background: white;
+    .final-cta .primary-button {
+      background: #b08b58;
+    }
+
+    .footer {
       text-align: center;
+      padding: 40px 20px;
+      background: #202d24;
+      color: #e7e9e5;
     }
 
-    .footer-brand { justify-content: center; }
-
-    footer p {
-      color: #888;
+    .footer-brand {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: 2px;
       font-size: 13px;
     }
 
-    footer small {
-      color: #999;
-      font-size: 9px;
-      letter-spacing: 1px;
+    .footer-brand .brand-mark {
+      background: #a47c46;
     }
 
-    @media(max-width:700px) {
+    .footer p {
+      color: #b9c0b9;
+      font-size: 12px;
+      margin: 18px 0;
+    }
+
+    .footer .copyright {
+      font-size: 10px;
+      color: #89928a;
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 760px) {
       .header {
-        padding: 14px 5%;
-        min-height: 70px;
+        height: 65px;
+        padding: 0 5%;
       }
 
-      .brand {
-        font-size: 13px;
-        letter-spacing: 2px;
-        gap: 8px;
+      .brand-name {
+        font-size: 12px;
       }
 
-      .brand-mark {
-        width: 39px;
-        height: 39px;
+      .header-contact {
+        padding: 10px 13px;
+        font-size: 10px;
       }
 
-      .contact {
-        font-size: 9px;
-        padding: 12px;
+      .navigation {
+        gap: 17px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 15px;
       }
 
-      .nav {
-        gap: 20px;
-        padding: 16px 5%;
+      .navigation a {
+        white-space: nowrap;
+        font-size: 10px;
       }
 
       .hero {
         min-height: 490px;
-        margin: 0;
-        padding: 65px 7%;
+        padding: 55px 7%;
       }
 
-      .hero h1 { letter-spacing: -2px; }
-
-      .section { padding: 65px 6%; }
-
-      .category-grid { gap: 10px; }
-
-      .category-card {
-        min-height: 210px;
-        padding: 17px;
+      .section {
+        padding: 65px 6%;
       }
 
-      .category-card strong { font-size: 20px; }
-
-      .destination-item { margin-top: 42px; }
-
-      .destination-photo { height: 250px; }
-
-      .destination-content { padding-top: 25px; }
-
-      .destination-content p {
-        font-size: 15px;
-        line-height: 1.8;
+      .experience-grid,
+      .destination-grid,
+      .about,
+      .detail-columns {
+        grid-template-columns: 1fr;
       }
 
-      .package-item { padding: 22px 8px; }
-
-      .package-name strong { font-size: 16px; }
-      .package-name small { font-size: 12px; }
-
-      .detail-page {
-        padding: 18px;
-        margin-top: 25px;
+      .experience-card {
+        height: 290px;
       }
 
-      .gallery-photo {
-        flex-basis: 88%;
-        height: 230px;
+      .destination-card img {
+        height: 210px;
       }
 
-      .detail-info { grid-template-columns: 1fr; }
+      .package-item {
+        padding: 20px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
 
-      .booking-card { padding: 20px; }
+      .package-button {
+        width: 100%;
+      }
 
-      .edition { font-size: 9px; }
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 170px 120px;
+      }
+
+      .gallery .gallery-main {
+        grid-column: span 2;
+        grid-row: auto;
+      }
+
+      .booking-box {
+        position: static;
+      }
+
+      .about {
+        gap: 30px;
+      }
+
+      .about-image img {
+        min-height: 250px;
+      }
+
+      .category-tabs {
+        flex-direction: column;
+      }
+
+      .category-tabs button {
+        width: 100%;
+      }
     }
   `]
 })
@@ -980,44 +1034,42 @@ export class App {
   selectedPackageId = 'jeep-only-no-transfer';
   detailView = false;
 
+  currentYear = new Date().getFullYear();
+
   participantOptions = Array.from({ length: 30 }, (_, i) => i + 1);
 
-  destinations = [
+  whatsappContact = 'https://wa.me/6285956346354';
+
+  destinations: Destination[] = [
     {
-      category: 'MOUNTAIN ADVENTURE',
-      title: 'MOUNT BATUR SUNRISE TREKKING',
-      description: 'Enjoy an unforgettable early morning trek to the summit of Mount Batur. Witness a beautiful sunrise with panoramic views of Lake Batur, Mount Abang and Mount Agung.',
-      photo: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200'
+      name: 'MOUNT BATUR SUNRISE TREKKING',
+      image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
+      description: 'Enjoy the beautiful mountain scenery and a memorable sunrise experience.'
     },
     {
-      category: 'VOLCANIC JEEP ADVENTURE',
-      title: 'MOUNT BATUR SUNRISE JEEP TOUR',
-      description: 'Explore Mount Batur in a traditional 4WD Jeep and enjoy a spectacular sunrise without hiking to the summit. Discover the famous black lava fields and volcanic landscape.',
-      photo: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200'
+      name: 'MOUNT BATUR SUNRISE JEEP TOUR',
+      image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200',
+      description: 'Explore the beauty of Mount Batur with an exciting jeep adventure.'
     },
     {
-      category: 'COFFEE EXPERIENCE & MOUNTAIN VIEW',
-      title: 'AKASA SPECIALTY COFFEE',
-      description: 'Relax at AKASA Specialty Coffee in the beautiful Kintamani highlands. Enjoy freshly brewed coffee, refreshing drinks and impressive mountain views.',
-      photo: 'https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=1200'
+      name: 'AKASA SPECIALTY COFFEE',
+      image: 'https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=1200',
+      description: 'Relax and enjoy a coffee experience with beautiful surroundings.'
     },
     {
-      category: 'TROPICAL NATURE & WATERFALL',
-      title: 'ULU PETANU WATERFALL',
-      description: 'Discover the peaceful beauty of Ulu Petanu Waterfall, surrounded by lush tropical greenery and natural rock formations.',
-      photo: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1200'
+      name: 'ULU PETANU WATERFALL',
+      image: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1200',
+      description: 'Discover a beautiful waterfall surrounded by tropical nature.'
     },
     {
-      category: 'RELAXING NATURAL HOT SPRING',
-      title: 'THE JANU HOT SPRING',
-      description: 'Take a relaxing break at The Janu Hot Spring in Kintamani. Enjoy warm water, peaceful mountain surroundings and beautiful natural scenery.',
-      photo: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200'
+      name: 'THE JANU HOT SPRING',
+      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200',
+      description: 'Enjoy a relaxing hot spring experience in Bali.'
     },
     {
-      category: 'ICONIC BALI WATERFALL',
-      title: 'KANTO LAMPO WATERFALL',
-      description: 'Visit the famous Kanto Lampo Waterfall in Gianyar, known for its unique cascading water flowing over natural rock formations.',
-      photo: 'https://images.unsplash.com/photo-1511497584788-876760111969?w=1200'
+      name: 'KANTO LAMPO WATERFALL',
+      image: 'https://images.unsplash.com/photo-1511497584788-876760111969?w=1200',
+      description: 'Visit one of Bali’s beautiful natural waterfall destinations.'
     }
   ];
 
@@ -1025,167 +1077,450 @@ export class App {
     {
       id: 'jeep-only-no-transfer',
       name: 'Jeep Only – No Transfer',
-      description: 'Jeep sunrise experience. Guests arrange their own transport to the meeting point.',
+      description: 'Enjoy a Mount Batur sunrise jeep adventure. Transportation to the meeting point is not included.',
       prices: [
         { min: 1, max: 1, price: 600000 },
         { min: 2, max: 2, price: 300000 },
         { min: 3, max: 10, price: 225000 },
         { min: 11, max: 20, price: 175000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200',
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
+        'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunrise jeep experience',
+        'Professional local jeep driver',
+        'Hotel transfer is not included'
+      ],
+      excludes: [
+        'Hotel pick-up and drop-off',
+        'Personal expenses',
+        'Meals and drinks'
+      ],
+      notes: [
+        'Please arrive at the agreed meeting point on time.',
+        'Bring a warm jacket and comfortable clothing.',
+        'Weather conditions may affect the sunrise view.'
       ]
     },
     {
       id: 'jeep-only-transfer',
       name: 'Jeep Only – With Transfer',
-      description: 'Sunrise Jeep tour with hotel pickup and drop-off. No cafe or waterfall visit.',
+      description: 'Experience Mount Batur sunrise by jeep with hotel pick-up and drop-off.',
       prices: [
         { min: 1, max: 1, price: 1400000 },
         { min: 2, max: 2, price: 725000 },
         { min: 3, max: 10, price: 550000 },
         { min: 11, max: 20, price: 450000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200',
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
+        'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunrise jeep experience',
+        'Professional local jeep driver',
+        'Hotel pick-up and drop-off',
+        'Private transportation'
+      ],
+      excludes: [
+        'Personal expenses',
+        'Meals and drinks'
+      ],
+      notes: [
+        'Pick-up time depends on your hotel location.',
+        'Please be ready at the hotel lobby.',
+        'Bring a warm jacket.'
       ]
     },
     {
       id: 'jeep-akasa',
       name: 'Jeep + AKASA Cafe',
-      description: 'Sunrise Jeep adventure followed by coffee and caldera views at AKASA.',
+      description: 'Combine a Mount Batur sunrise jeep adventure with a relaxing visit to AKASA Specialty Coffee.',
       prices: [
         { min: 1, max: 1, price: 1410000 },
         { min: 2, max: 2, price: 730000 },
         { min: 3, max: 10, price: 560000 },
         { min: 11, max: 20, price: 450000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200',
+        'https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=1200',
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunrise jeep experience',
+        'Professional local jeep driver',
+        'Hotel pick-up and drop-off',
+        'AKASA Specialty Coffee visit'
+      ],
+      excludes: [
+        'Personal expenses',
+        'Food and drinks at the cafe'
+      ],
+      notes: [
+        'Cafe orders are paid separately.',
+        'Pick-up time depends on your hotel location.',
+        'Bring a warm jacket.'
       ]
     },
     {
       id: 'jeep-waterfall',
       name: 'Jeep + Ulu Petanu Waterfall',
-      description: 'Sunrise Jeep adventure and a visit to Ulu Petanu Waterfall.',
+      description: 'Enjoy a sunrise jeep adventure and explore the natural beauty of Ulu Petanu Waterfall.',
       prices: [
         { min: 1, max: 1, price: 1430000 },
         { min: 2, max: 2, price: 750000 },
         { min: 3, max: 10, price: 575000 },
         { min: 11, max: 20, price: 465000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200',
+        'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1200',
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunrise jeep experience',
+        'Professional local jeep driver',
+        'Hotel pick-up and drop-off',
+        'Ulu Petanu Waterfall visit'
+      ],
+      excludes: [
+        'Personal expenses',
+        'Meals and drinks'
+      ],
+      notes: [
+        'Bring comfortable footwear.',
+        'Waterfall conditions depend on weather.',
+        'Bring a change of clothes if needed.'
       ]
     },
     {
       id: 'jeep-hot-spring',
       name: 'Jeep + Hot Spring',
-      description: 'Mount Batur sunrise Jeep adventure followed by The Janu Hot Spring.',
+      description: 'Discover Mount Batur by jeep and relax at a natural hot spring.',
       prices: [
         { min: 1, max: 1, price: 1600000 },
         { min: 2, max: 2, price: 900000 },
         { min: 3, max: 10, price: 750000 },
         { min: 11, max: 20, price: 650000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200',
+        'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200',
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunrise jeep experience',
+        'Professional local jeep driver',
+        'Hotel pick-up and drop-off',
+        'Hot spring visit'
+      ],
+      excludes: [
+        'Personal expenses',
+        'Meals and drinks'
+      ],
+      notes: [
+        'Bring swimwear and a towel.',
+        'Pick-up time depends on your hotel location.',
+        'Hot spring conditions may vary.'
       ]
     },
     {
       id: 'jeep-akasa-waterfall',
       name: 'Jeep + AKASA + Waterfall',
-      description: 'Sunrise Jeep, relaxing coffee at AKASA and Ulu Petanu Waterfall.',
+      description: 'Enjoy a sunrise jeep tour, visit AKASA Specialty Coffee, and discover Ulu Petanu Waterfall.',
       prices: [
         { min: 1, max: 1, price: 1450000 },
         { min: 2, max: 2, price: 760000 },
         { min: 3, max: 10, price: 585000 },
         { min: 11, max: 20, price: 475000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200',
+        'https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=1200',
+        'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunrise jeep experience',
+        'Professional local jeep driver',
+        'Hotel pick-up and drop-off',
+        'AKASA Specialty Coffee visit',
+        'Ulu Petanu Waterfall visit'
+      ],
+      excludes: [
+        'Personal expenses',
+        'Cafe food and drinks'
+      ],
+      notes: [
+        'Cafe orders are paid separately.',
+        'Bring comfortable footwear.',
+        'Bring a warm jacket.'
       ]
     }
   ];
 
-  trekkingSunrise: Package[] = [
+  sunrisePackages: Package[] = [
     {
       id: 'trek-sunrise-only-no-transfer',
-      name: 'Sunrise Trekking Only – No Transfer',
-      description: 'Sunrise summit trekking. Guests travel independently to the starting point.',
+      name: 'Sunrise Trekking – No Transfer',
+      description: 'Experience a sunrise hike to the summit of Mount Batur. Hotel transportation is not included.',
       prices: [
         { min: 1, max: 1, price: 850000 },
         { min: 2, max: 2, price: 510000 },
         { min: 3, max: 10, price: 475000 },
         { min: 11, max: 20, price: 450000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
+        'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200',
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunrise trekking',
+        'Local trekking guide',
+        'Breakfast after trekking'
+      ],
+      excludes: [
+        'Hotel transfer',
+        'Personal expenses',
+        'Meals other than stated'
+      ],
+      notes: [
+        'Meet at the designated meeting point.',
+        'Wear comfortable hiking shoes.',
+        'Bring a warm jacket and drinking water.'
       ]
     },
     {
       id: 'trek-sunrise-only-transfer',
-      name: 'Sunrise Trekking Only – With Transfer',
-      description: 'Sunrise summit trekking with hotel pickup and drop-off.',
+      name: 'Sunrise Trekking – With Transfer',
+      description: 'Enjoy a guided sunrise trek to Mount Batur with hotel pick-up and drop-off.',
       prices: [
         { min: 1, max: 1, price: 1650000 },
         { min: 2, max: 2, price: 875000 },
         { min: 3, max: 10, price: 775000 },
         { min: 11, max: 20, price: 725000 },
         { min: 21, max: 30, price: 700000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
+        'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200',
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunrise trekking',
+        'Local trekking guide',
+        'Hotel pick-up and drop-off',
+        'Breakfast after trekking'
+      ],
+      excludes: [
+        'Personal expenses',
+        'Meals other than stated'
+      ],
+      notes: [
+        'Pick-up time depends on hotel location.',
+        'Wear comfortable hiking shoes.',
+        'Bring a warm jacket and drinking water.'
       ]
     },
     {
       id: 'trek-sunrise-akasa',
-      name: 'Sunrise Trekking + AKASA',
-      description: 'Sunrise trekking followed by a relaxing visit to AKASA Cafe.',
+      name: 'Sunrise Trekking + AKASA Cafe',
+      description: 'Enjoy a Mount Batur sunrise trek followed by a visit to AKASA Specialty Coffee.',
       prices: [
         { min: 1, max: 1, price: 1675000 },
         { min: 2, max: 2, price: 900000 },
         { min: 3, max: 10, price: 800000 },
         { min: 11, max: 20, price: 725000 },
         { min: 21, max: 30, price: 700000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
+        'https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=1200',
+        'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunrise trekking',
+        'Local trekking guide',
+        'Hotel pick-up and drop-off',
+        'Breakfast after trekking',
+        'AKASA Specialty Coffee visit'
+      ],
+      excludes: [
+        'Personal expenses',
+        'Cafe food and drinks'
+      ],
+      notes: [
+        'Cafe orders are paid separately.',
+        'Wear comfortable hiking shoes.',
+        'Bring a warm jacket.'
       ]
     },
     {
       id: 'trek-sunrise-kanto-lampo',
-      name: 'Sunrise Trekking + Kanto Lampo',
-      description: 'Sunrise trekking combined with a visit to Kanto Lampo Waterfall.',
+      name: 'Sunrise Trekking + Kanto Lampo Waterfall',
+      description: 'Combine a Mount Batur sunrise trek with a visit to Kanto Lampo Waterfall.',
       prices: [
         { min: 1, max: 1, price: 1700000 },
         { min: 2, max: 2, price: 900000 },
         { min: 3, max: 10, price: 800000 },
         { min: 11, max: 20, price: 725000 },
         { min: 21, max: 30, price: 700000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
+        'https://images.unsplash.com/photo-1511497584788-876760111969?w=1200',
+        'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunrise trekking',
+        'Local trekking guide',
+        'Hotel pick-up and drop-off',
+        'Breakfast after trekking',
+        'Kanto Lampo Waterfall visit'
+      ],
+      excludes: [
+        'Personal expenses',
+        'Meals other than stated'
+      ],
+      notes: [
+        'Bring comfortable footwear.',
+        'Waterfall conditions depend on weather.',
+        'Bring a change of clothes if needed.'
       ]
     },
     {
       id: 'trek-sunrise-rice',
       name: 'Sunrise Trekking + Rice Terrace',
-      description: 'Sunrise trekking followed by a visit to a beautiful rice terrace.',
+      description: 'Enjoy a Mount Batur sunrise trek and discover the beautiful Bali rice terraces.',
       prices: [
         { min: 1, max: 1, price: 1700000 },
         { min: 2, max: 2, price: 900000 },
         { min: 3, max: 10, price: 800000 },
         { min: 11, max: 20, price: 725000 },
         { min: 21, max: 30, price: 700000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
+        'https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=1200',
+        'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunrise trekking',
+        'Local trekking guide',
+        'Hotel pick-up and drop-off',
+        'Breakfast after trekking',
+        'Rice terrace visit'
+      ],
+      excludes: [
+        'Personal expenses',
+        'Meals other than stated'
+      ],
+      notes: [
+        'Wear comfortable hiking shoes.',
+        'Bring a warm jacket.',
+        'Weather may affect the itinerary.'
       ]
     },
     {
       id: 'trek-sunrise-hot-spring',
       name: 'Sunrise Trekking + Hot Spring',
-      description: 'Sunrise trekking followed by a relaxing hot spring experience.',
+      description: 'Experience a Mount Batur sunrise trek and relax at a natural hot spring.',
       prices: [
         { min: 1, max: 1, price: 1800000 },
         { min: 2, max: 2, price: 950000 },
         { min: 3, max: 10, price: 850000 },
         { min: 11, max: 20, price: 775000 },
         { min: 21, max: 30, price: 750000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
+        'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200',
+        'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunrise trekking',
+        'Local trekking guide',
+        'Hotel pick-up and drop-off',
+        'Breakfast after trekking',
+        'Hot spring visit'
+      ],
+      excludes: [
+        'Personal expenses',
+        'Meals other than stated'
+      ],
+      notes: [
+        'Bring swimwear and a towel.',
+        'Wear comfortable hiking shoes.',
+        'Bring a warm jacket.'
       ]
     }
   ];
 
-  trekkingSunset: Package[] = [
+  sunsetPackages: Package[] = [
     {
       id: 'trek-sunset-no-transfer',
-      name: 'Sunset Trekking Only – No Transfer',
-      description: 'Sunset summit trekking. Guests arrange their own transport.',
+      name: 'Sunset Trekking – No Transfer',
+      description: 'Enjoy a guided afternoon trek to Mount Batur and experience the sunset from the mountain.',
       prices: [
         { min: 1, max: 1, price: 850000 },
         { min: 2, max: 2, price: 510000 },
         { min: 3, max: 10, price: 475000 },
         { min: 11, max: 20, price: 450000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
+        'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200',
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunset trekking',
+        'Local trekking guide'
+      ],
+      excludes: [
+        'Hotel transfer',
+        'Personal expenses',
+        'Meals and drinks'
+      ],
+      notes: [
+        'Meet at the designated meeting point.',
+        'Wear comfortable hiking shoes.',
+        'Bring drinking water and a light jacket.'
       ]
     },
     {
       id: 'trek-sunset-transfer',
-      name: 'Sunset Trekking Only – With Transfer',
-      description: 'Sunset summit trekking with hotel pickup and drop-off.',
+      name: 'Sunset Trekking – With Transfer',
+      description: 'Enjoy a guided afternoon trek to Mount Batur with hotel pick-up and drop-off.',
       prices: [
         { min: 1, max: 1, price: 1650000 },
         { min: 2, max: 2, price: 875000 },
         { min: 3, max: 10, price: 775000 },
         { min: 11, max: 20, price: 725000 },
         { min: 21, max: 30, price: 700000 }
+      ],
+      photos: [
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
+        'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200',
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200'
+      ],
+      includes: [
+        'Mount Batur sunset trekking',
+        'Local trekking guide',
+        'Hotel pick-up and drop-off'
+      ],
+      excludes: [
+        'Personal expenses',
+        'Meals and drinks'
+      ],
+      notes: [
+        'Pick-up time depends on hotel location.',
+        'Wear comfortable hiking shoes.',
+        'Bring drinking water and a light jacket.'
       ]
     }
   ];
@@ -1196,208 +1531,73 @@ export class App {
     }
 
     return this.trekTime === 'sunrise'
-      ? this.trekkingSunrise
-      : this.trekkingSunset;
+      ? this.sunrisePackages
+      : this.sunsetPackages;
   }
 
   get selectedPackage(): Package {
     return this.activePackages.find(
-      p => p.id === this.selectedPackageId
+      pkg => pkg.id === this.selectedPackageId
     ) ?? this.activePackages[0];
   }
 
   get selectedPrice(): number | null {
     const tier = this.selectedPackage.prices.find(
-      p => this.participants >= p.min && this.participants <= p.max
+      price =>
+        this.participants >= price.min &&
+        this.participants <= price.max
     );
 
     return tier ? tier.price : null;
   }
 
-  get whatsappLink(): string {
-    const message =
-      \`Hello SB Tour Guide! I am interested in \${this.selectedPackage.name}. \` +
-      \`Participants: \${this.participants}. \` +
-      \`Price per person: \${this.selectedPrice === null
-        ? 'Please confirm'
-        : this.formatPrice(this.selectedPrice)}.\`;
-
-    return 'https://wa.me/6285956346354?text=' +
-      encodeURIComponent(message);
-  }
-
   get selectedPhotos(): string[] {
-    const commonJeep = [
-      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200',
-      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
-      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200'
-    ];
-
-    const trekking = [
-      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
-      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200',
-      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200'
-    ];
-
-    if (this.activeTab === 'trekking') {
-      return trekking;
-    }
-
-    if (this.selectedPackageId === 'jeep-waterfall' ||
-        this.selectedPackageId === 'jeep-akasa-waterfall') {
-      return [
-        ...commonJeep,
-        'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1200'
-      ];
-    }
-
-    if (this.selectedPackageId === 'jeep-hot-spring') {
-      return [
-        ...commonJeep,
-        'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200'
-      ];
-    }
-
-    if (this.selectedPackageId === 'jeep-akasa') {
-      return [
-        ...commonJeep,
-        'https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=1200'
-      ];
-    }
-
-    return commonJeep;
-  }
-
-  get selectedDetailDescription(): string {
-    return this.selectedPackage.description +
-      ' Enjoy the beautiful scenery of Mount Batur and Kintamani with SB Tour Guide. ' +
-      'Your experience is arranged according to the package you select.';
+    return this.selectedPackage.photos;
   }
 
   get selectedIncludes(): string[] {
-    const items = this.activeTab === 'jeep'
-      ? [
-          '4WD Jeep and experienced Jeep driver',
-          'Mount Batur sunrise experience',
-          'Hotel pickup and drop-off (selected packages)',
-          'Destination entrance tickets according to selected package',
-          'Parking fees'
-        ]
-      : [
-          'Experienced local Mount Batur trekking guide',
-          'Mount Batur entrance ticket',
-          'Flashlight or headlamp',
-          'Simple breakfast: banana sandwich, boiled egg and biscuits',
-          'Hotel pickup and drop-off (selected packages)'
-        ];
-
-    if (this.selectedPackageId.includes('akasa')) {
-      items.push('AKASA Cafe visit (selected package)');
-    }
-
-    if (this.selectedPackageId.includes('waterfall') ||
-        this.selectedPackageId.includes('kanto-lampo')) {
-      items.push('Waterfall visit according to selected package');
-    }
-
-    if (this.selectedPackageId.includes('hot-spring')) {
-      items.push('Hot spring visit according to selected package');
-    }
-
-    if (this.selectedPackageId.includes('rice')) {
-      items.push('Rice terrace visit according to selected package');
-    }
-
-    return items;
+    return this.selectedPackage.includes;
   }
 
-  activeExcludes = [
-    'Meals and breakfast (except trekking breakfast)',
-    'Additional food and drinks at cafes',
-    'Personal expenses and purchases',
-    'Tips for driver or guide',
-    'Additional activities outside the itinerary',
-    'Expenses not mentioned in the selected package'
-  ];
+  get selectedExcludes(): string[] {
+    return this.selectedPackage.excludes;
+  }
 
   get selectedNotes(): string[] {
-    const notes = [
-      'Pickup is available from selected areas, depending on the package.',
-      'Pickup time may vary according to hotel location and traffic.',
-      'Bring a warm jacket because mountain temperatures can be cold.',
-      'Wear comfortable shoes suitable for rocky or uneven paths.',
-      'Sunrise visibility depends on weather conditions.',
-      'Follow your local guide’s safety instructions throughout the trip.'
-    ];
-
-    if (this.activeTab === 'trekking') {
-      notes.push(
-        'Trekking to the summit takes approximately two hours and has moderate difficulty.'
-      );
-    }
-
-    if (this.selectedPackageId.includes('no-transfer')) {
-      notes.push(
-        'This package does not include hotel pickup and drop-off. Guests arrange their own transport to the meeting point.'
-      );
-    }
-
-    return notes;
+    return this.selectedPackage.notes;
   }
 
-  // Membuka detail paket dan tetap berada di bagian Packages.
-  openPackage(pkg: Package) {
-    this.selectedPackageId = pkg.id;
-    this.detailView = true;
-    this.participants = 2;
+  get whatsappLink(): string {
+    const priceText = this.selectedPrice === null
+      ? 'Please confirm price'
+      : this.formatPrice(this.selectedPrice);
 
-    setTimeout(() => {
-      this.scrollToPackages();
-    }, 0);
+    const message =
+      `Hello SB Tour Guide! I am interested in ${this.selectedPackage.name}. ` +
+      `Participants: ${this.participants}. ` +
+      `Price per person: ${priceText}.`;
+
+    return `https://wa.me/6285956346354?text=${encodeURIComponent(message)}`;
   }
 
-  // Tombol navigasi utama: hanya menutup tampilan detail.
-  backToPackages() {
-    this.detailView = false;
-  }
-
-  // Tombol BACK TO PACKAGES pada halaman detail.
-  returnToPackages() {
-    this.detailView = false;
-
-    setTimeout(() => {
-      this.scrollToPackages();
-    }, 0);
-  }
-
-  goToPackages() {
-    this.detailView = false;
-
-    setTimeout(() => {
-      this.scrollToPackages();
-    }, 0);
-  }
-
-  // Fungsi untuk mengarahkan layar ke bagian Packages.
-  private scrollToPackages() {
-    document.getElementById('packages')?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-  }
-
-  changeTab(tab: 'jeep' | 'trekking') {
+  changeTab(tab: 'jeep' | 'trekking'): void {
     this.activeTab = tab;
     this.detailView = false;
 
-    this.selectedPackageId = tab === 'jeep'
-      ? 'jeep-only-no-transfer'
-      : this.trekTime === 'sunrise'
-        ? 'trek-sunrise-only-no-transfer'
-        : 'trek-sunset-no-transfer';
+    if (tab === 'jeep') {
+      this.selectedPackageId = 'jeep-only-no-transfer';
+    } else {
+      this.trekTime = 'sunrise';
+      this.selectedPackageId = 'trek-sunrise-only-no-transfer';
+    }
   }
 
-  changeTrekTime(time: 'sunrise' | 'sunset') {
+  chooseCategory(tab: 'jeep' | 'trekking'): void {
+    this.changeTab(tab);
+    this.goToPackages();
+  }
+
+  changeTrekTime(time: 'sunrise' | 'sunset'): void {
     this.trekTime = time;
     this.detailView = false;
 
@@ -1406,10 +1606,46 @@ export class App {
       : 'trek-sunset-no-transfer';
   }
 
-  onParticipantsChange(event: Event) {
-    this.participants = Number(
-      (event.target as HTMLSelectElement).value
-    );
+  openPackage(pkg: Package): void {
+    this.selectedPackageId = pkg.id;
+    this.participants = 2;
+    this.detailView = true;
+
+    setTimeout(() => {
+      this.scrollToPackages();
+    }, 0);
+  }
+
+  backToPackages(): void {
+    this.detailView = false;
+  }
+
+  returnToPackages(): void {
+    this.detailView = false;
+
+    setTimeout(() => {
+      this.scrollToPackages();
+    }, 0);
+  }
+
+  goToPackages(): void {
+    this.detailView = false;
+
+    setTimeout(() => {
+      this.scrollToPackages();
+    }, 0);
+  }
+
+  private scrollToPackages(): void {
+    document.getElementById('packages')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+
+  onParticipantsChange(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.participants = Number(select.value);
   }
 
   formatPrice(value: number): string {
