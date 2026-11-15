@@ -24,6 +24,10 @@ type Destination = {
   description: string;
 };
 
+const GYG_JEEP = 'https://gyg.me/uhMyKLkj';
+const GYG_TREKKING_BASIC = 'https://gyg.me/OVu9caZK';
+const GYG_TREKKING_COMBO = 'https://gyg.me/ZLIGocGj';
+
 const jeepPhotos = [
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200',
   'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200',
@@ -356,15 +360,27 @@ function createPackage(
                 </div>
 
                 <a
+                  class="gyg-button"
+                  [href]="getYourGuideLink"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  BOOK ON GETYOURGUIDE
+                </a>
+
+                <a
                   class="whatsapp-button"
                   [href]="whatsappLink"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   BOOK VIA WHATSAPP
                 </a>
 
                 <p class="booking-note">
-                  Contact us to confirm availability and complete your booking.
+                  Choose your preferred booking platform to reserve your
+                  adventure. Please check availability and final prices
+                  on the booking page.
                 </p>
               </aside>
             </div>
@@ -415,7 +431,7 @@ function createPackage(
       </div>
       <p>Discover Bali. Experience Authentic.</p>
       <p class="copyright">
-        © {{ currentYear }} SB Tour Guide. All Rights Reserved.
+        ©️ {{ currentYear }} SB Tour Guide. All Rights Reserved.
       </p>
     </footer>
   `,
@@ -561,7 +577,8 @@ function createPackage(
     }
 
     .primary-button:hover,
-    .whatsapp-button:hover {
+    .whatsapp-button:hover,
+    .gyg-button:hover {
       background: #a47c46;
     }
 
@@ -928,6 +945,22 @@ function createPackage(
       text-align: right;
     }
 
+    /* GETYOURGUIDE BOOKING BUTTON */
+    .gyg-button {
+      display: block;
+      width: 100%;
+      padding: 17px 12px;
+      text-align: center;
+      background: #344f3e;
+      color: white;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-top: 15px;
+      transition: .2s;
+    }
+
     .whatsapp-button {
       display: block;
       padding: 16px;
@@ -938,7 +971,7 @@ function createPackage(
       font-size: 11px;
       font-weight: bold;
       letter-spacing: 1px;
-      margin-top: 15px;
+      margin-top: 12px;
     }
 
     .booking-note {
@@ -1563,6 +1596,38 @@ export class App {
 
   get selectedPhotos(): string[] {
     return this.selectedPackage.photos;
+  }
+
+  // AUTOMATIC GETYOURGUIDE LINK SELECTION
+  get getYourGuideLink(): string {
+    const packageId = this.selectedPackage.id;
+
+    // All Jeep Tour packages
+    if (packageId.startsWith('jeep-')) {
+      return GYG_JEEP;
+    }
+
+    // Sunrise and Sunset Trekking without or with hotel transfer
+    if (
+      packageId === 'trek-sunrise-only-no-transfer' ||
+      packageId === 'trek-sunrise-only-transfer' ||
+      packageId === 'trek-sunset-no-transfer' ||
+      packageId === 'trek-sunset-transfer'
+    ) {
+      return GYG_TREKKING_BASIC;
+    }
+
+    // Sunrise Trekking combination packages
+    if (
+      packageId === 'trek-sunrise-akasa' ||
+      packageId === 'trek-sunrise-kanto-lampo' ||
+      packageId === 'trek-sunrise-rice' ||
+      packageId === 'trek-sunrise-hot-spring'
+    ) {
+      return GYG_TREKKING_COMBO;
+    }
+
+    return GYG_TREKKING_BASIC;
   }
 
   get whatsappLink(): string {
